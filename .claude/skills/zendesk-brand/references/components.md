@@ -144,9 +144,17 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
   font-size: var(--font-size-paragraph);
   font-weight: 500;
   text-decoration: underline;
-  text-decoration-color: var(--color-matcha);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.btn-tertiary:hover {
+  text-decoration: none;
+}
+
+.btn-tertiary:focus-visible {
+  outline: 2px solid var(--color-licorice);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 ```
 
@@ -178,7 +186,7 @@ Standard card component for content grouping.
 .card {
   background: var(--color-coconut);
   border: 1px solid var(--color-neutral-light-11);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   padding: var(--spacer-24);
   transition: box-shadow 0.2s;
 }
@@ -357,18 +365,17 @@ Page header with headline, body copy, and CTA.
   font-size: var(--font-size-paragraph);
   padding: var(--spacer-12) var(--spacer-16);
   border: 1px solid var(--color-neutral-light-18);
-  border-radius: 8px;
+  border-radius: var(--radius-xs);
   transition: border-color 0.2s;
 }
 
-.form__input:focus {
-  outline: none;
-  border-color: var(--color-matcha);
-  box-shadow: 0 0 0 3px rgba(209, 244, 112, 0.2);
+.form__input:focus-visible {
+  outline: 2px solid var(--color-licorice);
+  outline-offset: 2px;
 }
 
 .form__input[aria-invalid="true"] {
-  border-color: var(--color-error);
+  border-color: var(--color-dataviz-red-100);
 }
 
 .form__helper {
@@ -381,7 +388,7 @@ Page header with headline, body copy, and CTA.
 .form__error {
   display: block;
   font-size: var(--font-size-caption);
-  color: var(--color-error);
+  color: var(--color-dataviz-red-100);
   margin-top: var(--spacer-8);
 }
 ```
@@ -440,7 +447,7 @@ Page header with headline, body copy, and CTA.
 
 ❌ **Don't use borders on web imagery** - For general photography, let images breathe naturally
 
-❌ **Don't use circles, polygons, or other shapes** - Always mask imagery in rounded rectangles (border-radius: 12px)
+❌ **Don't use circles, polygons, or other shapes** - Always mask imagery in rounded rectangles (use `var(--radius-sm)`)
 
 ✅ **Exception:** For blockframes (product UI screenshots), DO use drop shadows to ensure contrast
 
@@ -448,14 +455,14 @@ Page header with headline, body copy, and CTA.
 
 ```css
 .image {
-  border-radius: 12px;  /* Always rounded rectangle */
+  border-radius: var(--radius-sm);  /* Always rounded rectangle */
   width: 100%;
   height: auto;
 }
 
 /* For product screenshots that need definition */
 .screenshot {
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-s2);
 }
 ```
