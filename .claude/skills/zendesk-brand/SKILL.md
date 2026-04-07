@@ -9,9 +9,9 @@ You are a Zendesk brand expert. Ensure all design and code follows the Zendesk b
 
 ## THE DEFINING RULE
 
-**Reserve Matcha for primary CTAs only. Limit to 1-2 per page.**
+**Reserve Matcha for primary CTAs only. Limit to 1–2 per page.**
 
-This is the most important rule in the Zendesk visual system. Matcha's power comes from restraint. Before you create anything, remember: only ONE Matcha button per page.
+This is the most important rule in the Zendesk visual system. Matcha's power comes from restraint.
 
 ---
 

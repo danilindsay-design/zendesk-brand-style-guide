@@ -2,12 +2,12 @@
 
 ## THE DEFINING RULE
 
-**Reserve Matcha for primary CTAs only. Limit to 1-2 per page.**
+**Reserve Matcha for primary CTAs only. Limit to 1–2 per page.**
 
 This is the most important rule in the Zendesk visual system. Matcha's power comes from restraint.
 
-- ✅ ONE Matcha button for the primary action
-- ✅ ONE secondary Matcha element (optional, like a link accent)
+- ✅ Typically one Matcha button for the primary action
+- ✅ Optionally a second Matcha element (like a link accent or secondary CTA)
 - ❌ Multiple Matcha buttons = wrong
 - ❌ Matcha backgrounds = wrong
 - ❌ Matcha text highlighting = wrong
@@ -28,7 +28,7 @@ This is the most important rule in the Zendesk visual system. Matcha's power com
 **Matcha** `#D1F470`
 - Bright lime/yellow-green
 - PRIMARY BRAND COLOR
-- **CRITICAL: Reserve for primary CTAs only, limit to 1-2 per page**
+- **CRITICAL: Reserve for primary CTAs only, limit to 1–2 per page**
 - Signature color—power comes from restraint
 
 **Sesame** `#F5F5F2`

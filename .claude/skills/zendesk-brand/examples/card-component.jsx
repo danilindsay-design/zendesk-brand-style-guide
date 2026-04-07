@@ -245,7 +245,7 @@ export default function CardComponent() {
  *
  * - Import tokens from '../assets/tokens.json'
  * - All spacing, colors, typography reference tokens
- * - THE DEFINING RULE: Only 1 Matcha button (in CTA section)
+ * - THE DEFINING RULE: Limit to 1–2 Matcha elements per page
  * - Matcha used sparingly for link accents
  * - Active voice: "Resolve issues," "Connect channels"
  * - Sentence case headlines

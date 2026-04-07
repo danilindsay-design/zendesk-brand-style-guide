@@ -2,7 +2,7 @@
 
 ## THE DEFINING RULE: Button Hierarchy
 
-**Reserve Matcha for primary CTAs only. Limit to ONE per page.**
+**Reserve Matcha for primary CTAs only. Limit to 1–2 per page.**
 
 This is the most important component rule.
 
@@ -74,7 +74,7 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
 }
 
 /* --- Primary button (Matcha) ---
-   THE DEFINING RULE: limit to 1–2 per page. */
+   Limit to 1–2 per page. */
 .btn-primary {
   background: var(--color-matcha);
   color: var(--color-licorice);
@@ -132,7 +132,7 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
 ```
 
 **Button Usage:**
-- **Primary (Matcha):** The main action on a page. **Limit to ONE per page** (sometimes two if absolutely necessary).
+- **Primary (Matcha):** The main action on a page. **Limit to 1–2 per page.**
 - **Secondary (Outline):** Alternative actions, less important than primary.
 - **Tertiary (Text-only):** Least important actions, inline links
 - **Code:**
