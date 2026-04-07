@@ -71,21 +71,32 @@
         }
 
         /* ===== BUTTONS ===== */
-        .btn-primary {
-            background: var(--color-matcha);
-            color: var(--color-licorice);
+        /* Shared button base */
+        .btn {
+            display: inline-block;
+            border-radius: var(--radius-md);
+            padding: 10px 20px;
             font-family: var(--font-family);
             font-size: var(--font-size-paragraph);
             font-weight: 600;
             line-height: 28px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: var(--radius-md);
+            white-space: nowrap;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
-            white-space: nowrap;
-            transition: background 0.15s ease;
+            transition: var(--transition-button);
+        }
+
+        .btn:disabled,
+        .btn[aria-disabled="true"] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Primary button (Matcha) */
+        .btn-primary {
+            background: var(--color-matcha);
+            color: var(--color-licorice);
+            border: none;
         }
 
         .btn-primary:hover {
@@ -105,26 +116,11 @@
             outline-offset: 3px;
         }
 
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
+        /* Secondary button (outline) */
         .btn-secondary {
             background: transparent;
             color: var(--color-licorice);
-            font-family: var(--font-family);
-            font-size: var(--font-size-paragraph);
-            font-weight: 600;
-            line-height: 28px;
-            padding: 10px 20px;
             border: 1px solid var(--color-neutral-light-32);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            white-space: nowrap;
-            transition: background 0.15s ease;
         }
 
         .btn-secondary:hover {
@@ -138,11 +134,6 @@
         .btn-secondary:focus-visible {
             outline: 2px solid var(--color-licorice);
             outline-offset: 3px;
-        }
-
-        .btn-secondary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         /* Hero image placeholder */
@@ -207,10 +198,10 @@
             <!-- CTAs: Limit to 1–2 Matcha elements per page -->
             <div class="hero__ctas">
                 <!-- PRIMARY: The ONLY Matcha element on this page -->
-                <a href="#" class="btn-primary">Start free trial</a>
+                <a href="#" class="btn btn-primary">Start free trial</a>
 
                 <!-- SECONDARY: Outline style, NOT Matcha -->
-                <a href="#" class="btn-secondary">Watch demo</a>
+                <a href="#" class="btn btn-secondary">Watch demo</a>
             </div>
         </div>
 

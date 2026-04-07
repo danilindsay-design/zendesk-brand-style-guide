@@ -56,6 +56,8 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
    All buttons share the same interaction-state
    pattern: a 5% Licorice overlay on hover, 11%
    on active, and 0.5 opacity on disabled.
+   
+   Usage: class="btn btn-primary"
    ============================================ */
 
 /* --- Shared button base --- */
@@ -71,6 +73,12 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
   cursor: pointer;
   text-decoration: none;
   transition: var(--transition-button);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* --- Primary button (Matcha) ---
@@ -98,12 +106,6 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
   outline-offset: 3px;
 }
 
-.btn-primary:disabled,
-.btn-primary[aria-disabled="true"] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* --- Secondary button (outline) --- */
 .btn-secondary {
   background: transparent;
@@ -122,12 +124,6 @@ All buttons share the same interaction-state pattern: a 5% Licorice overlay on h
 .btn-secondary:focus-visible {
   outline: 2px solid var(--color-licorice);
   outline-offset: 3px;
-}
-
-.btn-secondary:disabled,
-.btn-secondary[aria-disabled="true"] {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 ```
 
