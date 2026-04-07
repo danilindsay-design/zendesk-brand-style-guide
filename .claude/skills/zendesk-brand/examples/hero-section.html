@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section Example - Zendesk Brand</title>
+    <style>
+        /* Import Zendesk brand tokens */
+        @import url('../tokens.css');
+
+        /* Minimal reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-coconut);
+            color: var(--color-licorice);
+        }
+
+        /* Hero Section - Demonstrates brand guidelines */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacer-96) var(--spacer-56);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacer-72);
+            align-items: center;
+        }
+
+        /* Supertitle (eyebrow) */
+        .hero__supertitle {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-supertitle);
+            font-weight: var(--font-weight-supertitle);
+            line-height: var(--line-height-supertitle);
+            letter-spacing: var(--letter-spacing-supertitle);
+            text-transform: uppercase;
+            color: var(--color-neutral-light-47);
+            margin-bottom: var(--spacer-16);
+        }
+
+        /* Headline - H1: 42px / Medium (500) */
+        .hero__headline {
+            font-size: var(--font-size-h1);
+            font-weight: var(--font-weight-h1);
+            line-height: var(--line-height-h1);
+            color: var(--color-licorice);
+            margin-bottom: var(--spacer-24);
+        }
+
+        /* Body copy - 15px / Regular (400) */
+        .hero__body {
+            font-size: var(--font-size-paragraph);
+            font-weight: var(--font-weight-paragraph);
+            line-height: var(--line-height-paragraph);
+            color: var(--color-neutral-light-79);
+            margin-bottom: var(--spacer-40);
+            max-width: 480px;
+        }
+
+        /* CTA Group */
+        .hero__ctas {
+            display: flex;
+            gap: var(--spacer-16);
+            align-items: center;
+        }
+
+        /* Primary CTA - THE ONLY MATCHA ELEMENT ON PAGE */
+        .btn-primary {
+            background: var(--color-matcha);
+            color: var(--color-licorice);
+            font-size: var(--font-size-paragraph);
+            font-weight: 600;
+            padding: var(--spacer-12) var(--spacer-24);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        /* Secondary CTA - Outline style (NOT Matcha) */
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-licorice);
+            font-size: var(--font-size-paragraph);
+            font-weight: 600;
+            padding: calc(var(--spacer-12) - 2px) calc(var(--spacer-24) - 2px);
+            border: 2px solid var(--color-licorice);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-hover-light);
+        }
+
+        /* Hero image placeholder */
+        .hero__image {
+            background: var(--color-sesame);
+            border-radius: 12px;
+            aspect-ratio: 4 / 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: var(--spacer-56) var(--spacer-24);
+                gap: var(--spacer-40);
+            }
+
+            .hero__headline {
+                font-size: 30px;
+            }
+
+            .hero__ctas {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--
+        HERO SECTION EXAMPLE
+        Demonstrates Zendesk brand guidelines:
+
+        ✅ THE DEFINING RULE: Only 1 Matcha element (primary CTA)
+        ✅ Active voice: "Transform your service" (not "Service is transformed")
+        ✅ Sentence case headline (only first letter capitalized)
+        ✅ Direct address: "you," "your"
+        ✅ Concise copy: 2-3 sentences, ~80 characters
+        ✅ Proper spacing scale: 96, 72, 56, 40, 24, 16, 12
+        ✅ Typography: H1 42px/500, Body 15px/400
+        ✅ Button hierarchy: Primary (Matcha), Secondary (outline)
+        ✅ No jargon or business clichés
+    -->
+    <section class="hero">
+        <div class="hero__content">
+            <!-- Supertitle (eyebrow) - Optional, good for SEO -->
+            <div class="hero__supertitle">AI-Powered Customer Service</div>
+
+            <!-- Headline: Sentence case, lead with verb, ~30 characters -->
+            <h1 class="hero__headline">Transform your service with AI that understands</h1>
+
+            <!-- Body copy: Active voice, direct address (you/your), 2-3 sentences -->
+            <p class="hero__body">
+                Zendesk AI helps you resolve issues faster and deliver experiences your customers love.
+                We handle the complexity so you can focus on what matters—building relationships.
+            </p>
+
+            <!-- CTAs: Only 1 Matcha element per page -->
+            <div class="hero__ctas">
+                <!-- PRIMARY: The ONLY Matcha element on this page -->
+                <a href="#" class="btn-primary">Start free trial</a>
+
+                <!-- SECONDARY: Outline style, NOT Matcha -->
+                <a href="#" class="btn-secondary">Watch demo</a>
+            </div>
+        </div>
+
+        <!-- Hero image: Rounded rectangle (never circle) -->
+        <div class="hero__image">
+            📊
+        </div>
+    </section>
+</body>
+</html>

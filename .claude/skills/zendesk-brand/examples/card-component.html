@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Component Example - Zendesk Brand</title>
+    <style>
+        /* Import Zendesk brand tokens */
+        @import url('../tokens.css');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-coconut);
+            color: var(--color-licorice);
+            padding: var(--spacer-96) var(--spacer-56);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section title */
+        .section-title {
+            font-size: var(--font-size-h2);
+            font-weight: var(--font-weight-h2);
+            line-height: var(--line-height-h2);
+            margin-bottom: var(--spacer-40);
+        }
+
+        /* Card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacer-24);
+        }
+
+        /* Card Component - Demonstrates proper styling */
+        .card {
+            background: var(--color-coconut);
+            border: 1px solid var(--color-neutral-light-11);
+            border-radius: 12px;
+            padding: var(--spacer-24);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-s1);
+        }
+
+        /* Card icon - Using Matcha as ACCENT only (not background) */
+        .card__icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-sesame);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: var(--spacer-16);
+        }
+
+        /* Card title - H3: 21px / Medium (500) */
+        .card__title {
+            font-size: var(--font-size-h3);
+            font-weight: var(--font-weight-h3);
+            line-height: var(--line-height-h3);
+            margin-bottom: var(--spacer-12);
+        }
+
+        /* Card description - Body: 15px / Regular (400) */
+        .card__description {
+            font-size: var(--font-size-paragraph);
+            font-weight: var(--font-weight-paragraph);
+            line-height: var(--line-height-paragraph);
+            color: var(--color-neutral-light-79);
+            margin-bottom: var(--spacer-16);
+        }
+
+        /* Card link - Tertiary style (text only, underlined) */
+        .card__link {
+            color: var(--color-licorice);
+            font-size: var(--font-size-paragraph);
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: var(--color-matcha);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .card__link:hover {
+            background-color: var(--color-matcha);
+            text-decoration: none;
+        }
+
+        /* CTA Section - Shows proper button usage */
+        .cta-section {
+            background: var(--color-sesame);
+            border-radius: 12px;
+            padding: var(--spacer-56);
+            margin-top: var(--spacer-72);
+            text-align: center;
+        }
+
+        .cta-section__title {
+            font-size: var(--font-size-h2);
+            font-weight: var(--font-weight-h2);
+            margin-bottom: var(--spacer-16);
+        }
+
+        .cta-section__description {
+            font-size: var(--font-size-paragraph-large);
+            color: var(--color-neutral-light-79);
+            margin-bottom: var(--spacer-40);
+        }
+
+        /* THE ONLY MATCHA BUTTON ON THIS PAGE */
+        .btn-primary {
+            background: var(--color-matcha);
+            color: var(--color-licorice);
+            font-size: var(--font-size-paragraph);
+            font-weight: 600;
+            padding: var(--spacer-16) var(--spacer-40);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        CARD COMPONENT EXAMPLE
+        Demonstrates Zendesk brand guidelines:
+
+        ✅ Matcha used ONLY as accent (link underlines), not backgrounds
+        ✅ Typography: H2 30px/500, H3 21px/500, Body 15px/400
+        ✅ Spacing: 72, 56, 40, 24, 16, 12
+        ✅ Sentence case headlines
+        ✅ Active voice: "Resolve issues," "Connect channels"
+        ✅ Concise feature descriptions
+        ✅ THE DEFINING RULE: Only 1 Matcha button on entire page (in CTA section)
+    -->
+    <div class="container">
+        <!-- Section Title -->
+        <h2 class="section-title">Built for teams that move fast</h2>
+
+        <!-- Card Grid -->
+        <div class="card-grid">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card__icon">⚡</div>
+                <h3 class="card__title">Resolve issues faster</h3>
+                <p class="card__description">
+                    AI analyzes every request and routes it to the right agent with full context.
+                    Your team spends less time searching and more time helping.
+                </p>
+                <a href="#" class="card__link">Learn more</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card__icon">🔗</div>
+                <h3 class="card__title">Connect every channel</h3>
+                <p class="card__description">
+                    Meet your customers where they are—email, chat, social, or phone.
+                    We bring it all together in one place.
+                </p>
+                <a href="#" class="card__link">See integrations</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card__icon">📊</div>
+                <h3 class="card__title">Understand what matters</h3>
+                <p class="card__description">
+                    Real-time insights show you what's working and where to improve.
+                    Make decisions backed by data, not guesswork.
+                </p>
+                <a href="#" class="card__link">View analytics</a>
+            </div>
+        </div>
+
+        <!-- CTA Section - Contains THE ONLY Matcha button on page -->
+        <section class="cta-section">
+            <h2 class="cta-section__title">Ready to transform your service?</h2>
+            <p class="cta-section__description">
+                Join thousands of teams who trust Zendesk to deliver exceptional experiences
+            </p>
+            <!-- PRIMARY CTA - The ONLY Matcha element on this page -->
+            <a href="#" class="btn-primary">Start free trial</a>
+        </section>
+    </div>
+</body>
+</html>

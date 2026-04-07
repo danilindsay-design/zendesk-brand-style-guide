@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Development - Zendesk</title>
+    <style>
+        /* ===== FONT FACE DECLARATIONS ===== */
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-Light.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Zendesk Mono';
+            src: url('fonts/zendesk-mono/ZendeskMono-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Zendesk Mono';
+            src: url('fonts/zendesk-mono/ZendeskMono-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* ===== ZENDESK DESIGN TOKENS ===== */
+        :root {
+            --color-coconut: #FFFFFF;
+            --color-licorice: #11110D;
+            --color-matcha: #D1F470;
+            --color-sesame: #F5F5F2;
+            --color-sesame-200: #E5E5E2;
+            --color-licorice-79: rgba(17, 17, 13, 0.79);
+            --color-licorice-47: rgba(17, 17, 13, 0.47);
+            --color-licorice-18: rgba(17, 17, 13, 0.18);
+            --color-licorice-11: rgba(17, 17, 13, 0.11);
+            --color-licorice-5: rgba(17, 17, 13, 0.05);
+
+            --spacer-16: 16px;
+            --spacer-24: 24px;
+            --spacer-40: 40px;
+            --spacer-56: 56px;
+            --spacer-72: 72px;
+            --spacer-96: 96px;
+
+            --font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'Zendesk Mono', 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-coconut);
+            color: var(--color-licorice);
+            overflow: hidden;
+        }
+
+        /* ===== SLIDE CONTAINER ===== */
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            padding: var(--spacer-96) var(--spacer-72);
+            background: var(--color-coconut);
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Dark slide variant */
+        .slide-dark {
+            background: var(--color-licorice);
+            color: var(--color-coconut);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-size: 72px;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: var(--spacer-24);
+            color: inherit;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 500;
+            line-height: 1.15;
+            margin-bottom: var(--spacer-24);
+            color: inherit;
+        }
+
+        h3 {
+            font-size: 30px;
+            font-weight: 500;
+            line-height: 1.15;
+            margin-bottom: var(--spacer-16);
+            color: inherit;
+        }
+
+        h4 {
+            font-size: 21px;
+            font-weight: 500;
+            line-height: 1.25;
+            margin-bottom: var(--spacer-16);
+            color: inherit;
+        }
+
+        p {
+            font-size: 21px;
+            font-weight: 400;
+            line-height: 1.25;
+            margin-bottom: var(--spacer-16);
+            color: inherit;
+        }
+
+        .subtitle {
+            font-size: 30px;
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--color-licorice-79);
+        }
+
+        .slide-dark .subtitle {
+            color: var(--color-matcha);
+        }
+
+        .supertitle {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.75px;
+            text-transform: uppercase;
+            margin-bottom: var(--spacer-24);
+            color: var(--color-licorice-47);
+        }
+
+        .slide-dark .supertitle {
+            color: var(--color-matcha);
+        }
+
+        /* ===== LISTS ===== */
+        ul, ol {
+            margin-left: var(--spacer-24);
+            margin-bottom: var(--spacer-24);
+        }
+
+        li {
+            font-size: 21px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            color: inherit;
+        }
+
+        li ul, li ol {
+            margin-top: 12px;
+            margin-bottom: 0;
+        }
+
+        li li {
+            font-size: 18px;
+        }
+
+        /* ===== LINKS ===== */
+        a {
+            color: var(--color-licorice);
+            text-decoration: underline;
+            text-decoration-color: var(--color-matcha);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            background-color: var(--color-matcha);
+            text-decoration: none;
+        }
+
+        .slide-dark a {
+            color: var(--color-matcha);
+            text-decoration-color: var(--color-matcha);
+        }
+
+        .slide-dark a:hover {
+            color: var(--color-licorice);
+            background-color: var(--color-matcha);
+        }
+
+        /* ===== TWO COLUMN LAYOUT ===== */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacer-72);
+        }
+
+        .column h3 {
+            margin-bottom: var(--spacer-16);
+        }
+
+        .column p {
+            font-size: 18px;
+            line-height: 1.45;
+        }
+
+        /* ===== THREE COLUMN LAYOUT ===== */
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacer-40);
+        }
+
+        .book h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .book p, .book li {
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .book-title {
+            text-decoration: underline;
+            text-decoration-color: var(--color-matcha);
+            text-decoration-thickness: 2px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        /* ===== CODE BLOCKS ===== */
+        pre {
+            background: var(--color-licorice);
+            color: var(--color-coconut);
+            padding: var(--spacer-24);
+            border-radius: 2px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: var(--spacer-24);
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 13px;
+        }
+
+        /* ===== ACCENT BOX ===== */
+        .accent-box {
+            background: var(--color-sesame);
+            padding: var(--spacer-40);
+            border-radius: 2px;
+            margin-bottom: var(--spacer-24);
+        }
+
+        .accent-box p {
+            font-size: 18px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed;
+            bottom: var(--spacer-40);
+            right: var(--spacer-40);
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            width: 56px;
+            height: 56px;
+            border: none;
+            background: var(--color-matcha);
+            color: var(--color-licorice);
+            font-size: 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-family);
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: var(--color-licorice);
+            color: var(--color-matcha);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        /* ===== COUNTER ===== */
+        .counter {
+            position: fixed;
+            bottom: var(--spacer-40);
+            left: var(--spacer-40);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--color-licorice-79);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+
+        <!-- Slide 1: Title -->
+        <section class="slide active">
+            <div class="supertitle">Zendesk · Enterprise AI Strategy</div>
+            <h1>Agent Development</h1>
+            <p class="subtitle">AI Agent design and delivery</p>
+        </section>
+
+        <!-- Slide 2: Speaker -->
+        <section class="slide">
+            <h2>Daniel Watrous</h2>
+            <p class="subtitle">Sr. Principal, Enterprise AI Strategy</p>
+            <p><a href="https://software.danielwatrous.com/">software.danielwatrous.com</a></p>
+        </section>
+
+        <!-- Slide 3: Agenda -->
+        <section class="slide">
+            <h2>Agenda</h2>
+            <ul>
+                <li>What is an Agent?</li>
+                <li>Linear vs. Non-linear</li>
+                <li>Don't be unoriginal</li>
+                <li>Expectation and iteration</li>
+                <li>Agent Flow</li>
+                <li>Platforms, libraries, approaches, etc.</li>
+                <li>Triggers & Autonomy</li>
+                <li>Build your first agent</li>
+                <li>Survey :)</li>
+            </ul>
+        </section>
+
+        <!-- Slide 4: What is an Agent? -->
+        <section class="slide">
+            <h2>What is an Agent?<br>(The Historical Context)</h2>
+            <ul>
+                <li>The Etymology of "Agency": In 2020 (pre-gen AI), an "agent" was a representative (like a real estate or travel agent) <strong>authorized to act on behalf of a principal</strong>.</li>
+                <li>The "New Hire / Intern" Mental Model:
+                    <ul>
+                        <li>Start by thinking about the agent as a human and write a <strong>Job Description</strong> (System Prompt) and a <strong>Scope of Authority</strong> (Tools).</li>
+                        <li>They are capable, but lack your specific "company knowledge" and other nuances of how to perform and evaluate work.</li>
+                    </ul>
+                </li>
+                <li>Core Concept: AI as a delegated representative with <strong>accountability</strong> and methods for measuring success or reporting outcomes for external <strong>measurement of success</strong></li>
+                <li><strong>You are the principal!</strong></li>
+            </ul>
+        </section>
+
+        <!-- Slide 5: Psychology -->
+        <section class="slide">
+            <h2>Does psychology apply to AI?</h2>
+            <div class="two-column">
+                <div class="column">
+                    <h4>Priming</h4>
+                    <p><strong>Priming</strong> in psychology is the unconscious, implicit memory process where exposure to a stimulus (word, image, scent) influences responses to later stimuli.</p>
+                    <p><strong>How to use:</strong> Mention a person, technology, approach or to activate related parts of the LLM "brain".</p>
+                    <p><strong>Example:</strong> In the style of Zig Ziglar, give me a brief motivational email to my sales team.</p>
+                    <p><a href="https://en.wikipedia.org/wiki/Priming_(psychology)">Learn more</a></p>
+                </div>
+                <div class="column">
+                    <h4>The IKEA effect</h4>
+                    <p><strong>The IKEA effect</strong> is a cognitive bias where people disproportionately value, love, or overpay for products they partially created or assembled themselves.</p>
+                    <p><strong>How this factors in:</strong> When we use AI to build tools, there is an increased tendency to value our tool/application disproportionately higher than other tools.</p>
+                    <p><a href="https://www.hbs.edu/ris/Publication%20Files/11-091.pdf">Learn more</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Books -->
+        <section class="slide">
+            <h3>Book Break (How to approach AI thinking)</h3>
+            <div class="three-column">
+                <div class="book">
+                    <h4 class="book-title">Thinking, Fast and Slow</h4>
+                    <p>Daniel Kahneman explains two systems our brain uses to operate in the world, as well as how bias and confidence work. There is significant overlap when exploring AI solutions.</p>
+                </div>
+                <div class="book">
+                    <h4 class="book-title">Genius Makers</h4>
+                    <p>Easy to follow non-technical history of how we got to where we are with AI today. This leads to a more nuanced and accurate understanding of what AI is actually doing.</p>
+                </div>
+                <div class="book">
+                    <h4 class="book-title">The E-Myth Revisited</h4>
+                    <p>The three personas Gerber presents are Technician, Manager and Entrepreneur. The Technician and Manager roles are a good target for AI adoption.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Linear vs Non-linear -->
+        <section class="slide">
+            <h2>Linear vs. Non-linear</h2>
+            <ul>
+                <li>By default, humans tend to think in linear ways
+                    <ul>
+                        <li>E.g. Do X and Y to product outcome Z</li>
+                    </ul>
+                </li>
+                <li>Many AI projects are focused on existing linear processes and simply try to replace the human with AI without rationalizing the process</li>
+                <li>Non-linear starts with the business outcome and focuses on the strengths of AI to reimagine processes</li>
+                <li>Humans don't scale well, but AI can</li>
+            </ul>
+        </section>
+
+        <!-- Slide 8: Example -->
+        <section class="slide">
+            <h3>Example: Review Closed Cases</h3>
+            <p style="margin-bottom: var(--spacer-40);">Existing workflow: Supervisors views report of all cases with a 1 or 2 star rating and escalates where needed.</p>
+            <div class="two-column">
+                <div class="column">
+                    <h4>Linear</h4>
+                    <ul>
+                        <li>Have AI read the report and evaluate the cases for escalation</li>
+                        <li>Generate new report for escalations</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Non-linear</h4>
+                    <ul>
+                        <li>Let AI review every case, regardless of user rating</li>
+                        <li>Assess for alignment of rating and user sentiment and duration or other metrics</li>
+                        <li>For each case where there is misalignment or need for escalation, an agent can reopen and assign the case</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Be Original -->
+        <section class="slide">
+            <h2>Be original</h2>
+            <div class="two-column">
+                <div class="column">
+                    <p>Use AI to generate slides. This is very common and makes sense where slides are needed.</p>
+                    <p><strong>Output:</strong> 16x9 slides</p>
+                </div>
+                <div class="column">
+                    <p>Use AI to generate highly visual, interactive and AI-infused interfaces that can be used to present and collaborate with others.</p>
+                    <p><strong>Output:</strong> An AI coded UI with rich visualizations and interactive elements, including AI interactions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Expectation -->
+        <section class="slide">
+            <h2>Expectation and Iteration</h2>
+            <p><a href="https://software.danielwatrous.com/ai-are-we-holding-it-to-unrealistic-standards/">software.danielwatrous.com/ai-are-we-holding-it-to-unrealistic-standards/</a></p>
+            <div class="accent-box" style="margin-top: var(--spacer-40);">
+                <p>Visual comparison: realistic vs. unrealistic expectations<br>(Photo showing contrast between realistic and illustrated person)</p>
+            </div>
+        </section>
+
+        <!-- Slide 11: No-code Options -->
+        <section class="slide">
+            <h2>No-code Agent Options</h2>
+            <div class="two-column">
+                <div class="column">
+                    <p><strong>Gemini:</strong> <a href="https://gemini.google.com">gemini.google.com</a></p>
+                    <p>VPN: Not required</p>
+                </div>
+                <div class="column">
+                    <p><strong>ChatGPT + others:</strong><br><a href="https://chatgpt-libre.zende.sk/c/new">chatgpt-libre.zende.sk/c/new</a></p>
+                    <p>VPN: Required</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Agent Flow -->
+        <section class="slide">
+            <h2>Agent Flow</h2>
+            <div class="accent-box" style="margin-top: var(--spacer-40);">
+                <p>Agent flow diagram: User → Agent (with numbered steps 1-7) → LLM, Tool, MCP, and sub-Agent</p>
+            </div>
+            <p><a href="https://google.github.io/adk-docs/runtime/#how-it-works-a-simplified-invocation">google.github.io/adk-docs/runtime</a></p>
+        </section>
+
+        <!-- Slide 13: Data flow no-code -->
+        <section class="slide">
+            <h2>Data flow for no-code agents</h2>
+            <div class="accent-box" style="margin-top: var(--spacer-40);">
+                <p>Data flow diagram:<br>User manually fetches data → Input Data → Agent → Output Data</p>
+            </div>
+        </section>
+
+        <!-- Slide 14: Data flow code -->
+        <section class="slide">
+            <h2>Data flow for low/high-code agents</h2>
+            <div class="accent-box" style="margin-top: var(--spacer-40);">
+                <p>Enhanced data flow diagram:<br>Agent can fetch from Input Data, User gives to Agent, Agent generates processed data, Agent can fetch/action on Output Data</p>
+            </div>
+        </section>
+
+        <!-- Slide 15: Build a Gem -->
+        <section class="slide slide-dark">
+            <h1>Let's build a Gem (Agent)</h1>
+        </section>
+
+        <!-- Slide 16: Platforms -->
+        <section class="slide">
+            <h2>Platforms, libraries, approaches, etc.</h2>
+            <ul>
+                <li>Google ADK: <a href="https://google.github.io/adk-docs/">google.github.io/adk-docs/</a></li>
+                <li>Genkit: <a href="https://genkit.dev/">genkit.dev/</a></li>
+                <li>LangChain: <a href="https://docs.langchain.com/oss/python/langchain/agents">docs.langchain.com/oss/python/langchain/agents</a></li>
+                <li>LangGraph: <a href="https://www.langchain.com/langgraph">langchain.com/langgraph</a></li>
+                <li>CrewAI: <a href="https://docs.crewai.com/en/concepts/agents">docs.crewai.com/en/concepts/agents</a></li>
+            </ul>
+            <p style="margin-top: var(--spacer-24);">These are all pretty new, so it's early to pick a winner. Look for capital and ability to invest long term or activity level of the community.</p>
+        </section>
+
+        <!-- Slide 17: Triggers -->
+        <section class="slide">
+            <h2>Triggers & Autonomy</h2>
+            <ul>
+                <li>Agents are often deployed as any other application: API (REST), but sometimes use a specific protocol.</li>
+                <li>Agents can be executed by: CRON, infinite loop, polling, subscribing, direct API call, CLI, application initiated, etc.
+                    <ul>
+                        <li>Going back to the intern analogy, you might: email, chat, call, text, stop by, etc.</li>
+                        <li>An agent may use the above methods to trigger another sub-agent</li>
+                    </ul>
+                </li>
+                <li>"Autonomous" agents will STILL be called in one of the above ways</li>
+            </ul>
+        </section>
+
+        <!-- Slide 18: Build First Agent -->
+        <section class="slide">
+            <h2>Build your first agent</h2>
+            <ul>
+                <li>Assumptions for this agent:
+                    <ul>
+                        <li>Connected to Palo VPN</li>
+                        <li>Use OpenAI token from <a href="https://ai-gateway.zende.sk/tokens">ai-gateway.zende.sk/tokens</a></li>
+                        <li>Use Google ADK</li>
+                        <li>Use Docker (can run locally if you want to)</li>
+                    </ul>
+                </li>
+                <li>Follow the build tutorials: <a href="https://google.github.io/adk-docs/get-started/python/">google.github.io/adk-docs/get-started/python/</a></li>
+            </ul>
+        </section>
+
+        <!-- Slide 19: Docker Command -->
+        <section class="slide">
+            <h3>Build your first agent... continued</h3>
+            <pre><code>docker run -it --rm \
+  --name adk-workshop-gateway \
+  -p 8000:8000 \
+  -v "$(pwd):/app" \
+  -w /app \
+  -e OPENAI_API_KEY="your_gateway_api_key_or_token" \
+  -e OPENAI_API_BASE="https://ai-gateway.zende.sk/v1" \
+  python:3.11 \
+  bash -c "pip install google-adk litellm openai && bash"</code></pre>
+        </section>
+
+        <!-- Slide 20: Python Code -->
+        <section class="slide">
+            <h3>Build your first agent... continued</h3>
+            <pre><code>import os
+from google.adk.agents.llm_agent import Agent
+from google.adk.models.lite_llm import LiteLlm
+
+# 1. Configure the model to use the Zendesk Gateway
+model = LiteLlm(
+    model='openai/gpt-4o',
+    api_base=os.getenv("OPENAI_API_BASE"),
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+
+# 2. Mock tool implementation
+def get_current_time(city: str) -> dict:
+    """Returns the current time in a specified city."""
+    return {"status": "success", "city": city, "time": "12:30 AM"}
+
+# 3. Initialize the Agent
+root_agent = Agent(
+    model=model,
+    name='root_agent',
+    description="Tells the current time in a specified city.",
+    instructions="You are a helpful assistant.",
+    tools=[get_current_time],
+)</code></pre>
+        </section>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button class="nav-button" id="prevBtn">←</button>
+        <button class="nav-button" id="nextBtn">→</button>
+    </div>
+
+    <!-- Counter -->
+    <div class="counter">
+        <span id="currentSlide">1</span> / 20
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideSpan = document.getElementById('currentSlide');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            currentSlideSpan.textContent = currentSlide + 1;
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) showSlide(currentSlide - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            } else if ((e.key === 'ArrowRight' || e.key === ' ') && currentSlide < slides.length - 1) {
+                e.preventDefault();
+                showSlide(currentSlide + 1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
