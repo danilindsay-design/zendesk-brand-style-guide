@@ -299,7 +299,7 @@ Page header with headline, body copy, and CTA.
 - Lead with verb in headline ("Transform," "Build," "Connect")
 - Keep copy concise: 2-3 sentences
 - Use sentence case for headline
-- Include only ONE Matcha button
+- Limit to 1 primary Matcha button (1–2 per page maximum)
 - Make secondary action less prominent (outline style)
 
 ---

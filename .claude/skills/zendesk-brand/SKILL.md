@@ -120,14 +120,14 @@ Each topic has its own detailed guide:
 
 - **[examples/hero-section.html](examples/hero-section.html)**
   - Complete hero with proper token usage
-  - THE DEFINING RULE (1 Matcha CTA)
+  - THE DEFINING RULE: 1 primary Matcha button (limit 1–2 per page)
   - Active voice copy, sentence case, direct address
   - Inline comments explaining every brand decision
 
 - **[examples/card-component.html](examples/card-component.html)**
   - Card grid showing proper typography and spacing
   - Matcha used only as accent (link underlines)
-  - One Matcha button in CTA section
+  - 1 primary Matcha button in CTA section (limit 1–2 per page)
   - Demonstrates proper component patterns
 
 **Use these as templates** when building new components or pages.
