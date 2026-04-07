@@ -157,6 +157,15 @@
   --shadow-s2: 0px 16px 28px rgba(0, 0, 0, 0.08);
   --shadow-s3: 0px 24px 36px rgba(0, 0, 0, 0.16);
   --shadow-s4: 0px 10px 50px 20px rgba(0, 0, 0, 0.3);
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-xxs: 4px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 40px;
+  --radius-xxl: 100px;
 }
 
 /* ===== INTERACTIVE STATES ===== */

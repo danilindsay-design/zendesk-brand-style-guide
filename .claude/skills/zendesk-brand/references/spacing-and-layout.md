@@ -201,27 +201,31 @@ Use shadows to create depth and hierarchy.
 
 ## Border Radius
 
-Consistent rounding creates visual cohesion.
+Consistent rounding creates visual cohesion. Use the named scale.
 
-### Standard Values
+### Border Radius Scale
 
-- **Small elements:** 4-8px (buttons, badges, small cards)
-- **Medium elements:** 8-12px (cards, images, form fields)
-- **Large elements:** 12-16px (large cards, sections)
+- **XXS** - `4px` - `var(--radius-xxs)` - Small badges, tags
+- **XS** - `8px` - `var(--radius-xs)` - Buttons, inputs
+- **SM** - `12px` - `var(--radius-sm)` - Cards, images, form fields
+- **MD** - `16px` - `var(--radius-md)` - Large cards
+- **LG** - `20px` - `var(--radius-lg)` - Hero images, sections
+- **XL** - `40px` - `var(--radius-xl)` - Decorative elements
+- **XXL** - `100px` - `var(--radius-xxl)` - Pills, high-radius elements
 
 ### Example
 
 ```css
 .button {
-  border-radius: 8px;
+  border-radius: var(--radius-xs);
 }
 
 .card {
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
 }
 
 .hero-image {
-  border-radius: 12px;  /* Never use circles for images */
+  border-radius: var(--radius-md);  /* Never use circles for images */
 }
 ```
 
