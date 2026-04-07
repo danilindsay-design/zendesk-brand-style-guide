@@ -54,10 +54,6 @@
   --color-neutral-dark-7: rgba(255, 255, 255, 0.07);
   --color-neutral-dark-5: rgba(255, 255, 255, 0.05);
 
-  /* ===== STATE COLORS ===== */
-  --color-success: #248275;
-  --color-error: #B84242;
-
   /* ===== DATA VIZ - CYAN ===== */
   --color-dataviz-cyan-100: #C6F1EE;
   --color-dataviz-cyan-200: #90DACD;

@@ -112,18 +112,6 @@ Use on dark backgrounds.
 
 ---
 
-## State Colors
-
-**Success** `#248275`
-- Teal for success states
-- Confirmations, completions
-
-**Error** `#B84242`
-- Red for error states
-- Warnings, destructive actions
-
----
-
 ## Data Visualization Palettes
 
 ### Cyan Scale (100-500)
