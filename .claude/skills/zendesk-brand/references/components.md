@@ -21,7 +21,7 @@ This is the most important component rule.
   font-weight: 600;
   padding: var(--spacer-12) var(--spacer-24);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 ```
 
@@ -37,7 +37,7 @@ This is the most important component rule.
   font-weight: 600;
   padding: calc(var(--spacer-12) - 2px) calc(var(--spacer-24) - 2px);
   border: 2px solid var(--color-licorice);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 ```
 

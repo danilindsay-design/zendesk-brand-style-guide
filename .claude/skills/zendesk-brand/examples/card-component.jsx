@@ -109,7 +109,7 @@ const styles = {
     fontWeight: tokens.typography.fontWeightSemibold,
     padding: `${tokens.spacing[16]} ${tokens.spacing[40]}`,
     border: 'none',
-    borderRadius: tokens.borderRadius.xs,
+    borderRadius: tokens.borderRadius.md,
     cursor: 'pointer',
     textDecoration: 'none',
     display: 'inline-block'
