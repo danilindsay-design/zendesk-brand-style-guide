@@ -170,9 +170,9 @@ Use shadows to create depth and hierarchy.
 - **SS1** - `0px 2px 4px rgba(0, 0, 0, 0.08)` - Very subtle, small cards
 - **SS2** - `0px 4px 12px rgba(0, 0, 0, 0.05)` - Subtle, hover states
 - **S1** - `0px 8px 24px rgba(0, 0, 0, 0.08)` - Medium elevation, cards
-- **S2** - `0px 12px 32px rgba(0, 0, 0, 0.12)` - High elevation
-- **S3** - `0px 16px 48px rgba(0, 0, 0, 0.16)` - Very high, popovers
-- **S4** - `0px 24px 64px rgba(0, 0, 0, 0.24)` - Maximum, modals
+- **S2** - `0px 16px 28px rgba(0, 0, 0, 0.08)` - High elevation
+- **S3** - `0px 24px 36px rgba(0, 0, 0, 0.16)` - Very high, popovers
+- **S4** - `0px 10px 50px 20px rgba(0, 0, 0, 0.3)` - Maximum, modals
 
 ### Usage
 
