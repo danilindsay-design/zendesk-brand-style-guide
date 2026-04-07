@@ -93,30 +93,30 @@ Mobile-first approach. Design for small screens first, enhance for larger.
 
 ### Breakpoint Values
 
-- **XS (Extra Small):** 0-575px - Mobile portrait
-- **S (Small):** 576-767px - Mobile landscape
-- **M (Medium):** 768-991px - Tablets
-- **L (Large):** 992-1199px - Desktop
-- **XL (Extra Large):** 1200px+ - Large desktop
+- **XS (Extra Small):** 320-480px - Mobile portrait
+- **S (Small):** 481-767px - Mobile landscape
+- **M (Medium):** 768-1119px - Tablets
+- **L (Large):** 1120-1599px - Desktop
+- **XL (Extra Large):** 1600px+ - Large desktop
 
 ### Media Query Pattern
 
 ```css
-/* Mobile first - base styles for XS */
+/* Mobile first - base styles for XS/S */
 .hero {
   padding: var(--spacer-56) var(--spacer-24);
   grid-template-columns: 1fr;
 }
 
-/* Tablet and up */
+/* Tablet and up (M) */
 @media (min-width: 768px) {
   .hero {
     padding: var(--spacer-72) var(--spacer-40);
   }
 }
 
-/* Desktop and up */
-@media (min-width: 992px) {
+/* Desktop and up (L) */
+@media (min-width: 1120px) {
   .hero {
     padding: var(--spacer-96) var(--spacer-56);
     grid-template-columns: 1fr 1fr;
@@ -268,8 +268,8 @@ Exception: Profile avatars may use circles, but product/marketing imagery should
   box-shadow: var(--shadow-s1);
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
+/* Mobile adjustments (below M breakpoint) */
+@media (max-width: 767px) {
   .section {
     padding: var(--spacer-56) var(--spacer-24);
   }
