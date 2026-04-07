@@ -6,6 +6,78 @@
 
 This is the most important component rule.
 
+---
+
+## Interaction States — The Overlay Pattern
+
+Zendesk doesn't use different hex values for hover and active states. Instead, layer a neutral opacity overlay on top of the base color:
+
+**Hover:** 5% Licorice overlay (`--color-hover-light`) on light backgrounds, 7% white (`--color-hover-dark`) on dark backgrounds
+
+**Active:** 11% Licorice overlay (`--color-active-light`) on light backgrounds, 13% white (`--color-active-dark`) on dark backgrounds
+
+This works because the overlay darkens (light mode) or lightens (dark mode) whatever is beneath it proportionally, giving every component consistent interaction feedback without needing per-component hover colors.
+
+### Implementation
+
+**For colored backgrounds (buttons, badges):**
+```css
+.element {
+  background: var(--color-matcha);
+  transition: background 0.15s ease;
+}
+
+.element:hover {
+  background:
+    linear-gradient(0deg, var(--color-hover-light) 0%, var(--color-hover-light) 100%),
+    var(--color-matcha);
+}
+
+.element:active {
+  background:
+    linear-gradient(0deg, var(--color-active-light) 0%, var(--color-active-light) 100%),
+    var(--color-matcha);
+}
+```
+
+**For transparent backgrounds (outline buttons):**
+```css
+.element {
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.element:hover {
+  background: var(--color-hover-light);
+}
+
+.element:active {
+  background: var(--color-active-light);
+}
+```
+
+**For dark backgrounds:**
+```css
+.element-dark {
+  background: var(--color-licorice);
+  transition: background 0.15s ease;
+}
+
+.element-dark:hover {
+  background:
+    linear-gradient(0deg, var(--color-hover-dark) 0%, var(--color-hover-dark) 100%),
+    var(--color-licorice);
+}
+
+.element-dark:active {
+  background:
+    linear-gradient(0deg, var(--color-active-dark) 0%, var(--color-active-dark) 100%),
+    var(--color-licorice);
+}
+```
+
+---
+
 ### Button Types
 
 **Primary Button**
