@@ -10,92 +10,75 @@ This is the most important component rule.
 
 ## Interaction States — The Overlay Pattern
 
-Zendesk doesn't use different hex values for hover and active states. Instead, layer a neutral opacity overlay on top of the base color:
+Zendesk uses a single, universal pattern for hover and active states across every interactive component: a semi-transparent neutral overlay on top of the base color.
 
-**Hover:** 5% Licorice overlay (`--color-hover-light`) on light backgrounds, 7% white (`--color-hover-dark`) on dark backgrounds
+**Light mode (on light backgrounds):**
+- Hover: 5% Licorice overlay → `var(--color-hover-light)`
+- Active: 11% Licorice overlay → `var(--color-active-light)`
 
-**Active:** 11% Licorice overlay (`--color-active-light`) on light backgrounds, 13% white (`--color-active-dark`) on dark backgrounds
+**Dark mode (on dark backgrounds):**
+- Hover: 7% white overlay → `var(--color-hover-dark)`
+- Active: 13% white overlay → `var(--color-active-dark)`
 
-This works because the overlay darkens (light mode) or lightens (dark mode) whatever is beneath it proportionally, giving every component consistent interaction feedback without needing per-component hover colors.
+**Disabled (universal):** `opacity: 0.5` on the base element.
 
-### Implementation
+**How to apply it:**
 
-**For colored backgrounds (buttons, badges):**
+For buttons with a solid background (like primary Matcha), layer the overlay using a linear-gradient:
+
 ```css
-.element {
-  background: var(--color-matcha);
-  transition: var(--transition-button);
-}
-
-.element:hover {
+.btn-primary:hover {
   background:
     linear-gradient(0deg, var(--color-hover-light) 0%, var(--color-hover-light) 100%),
     var(--color-matcha);
 }
-
-.element:active {
-  background:
-    linear-gradient(0deg, var(--color-active-light) 0%, var(--color-active-light) 100%),
-    var(--color-matcha);
-}
 ```
 
-**For transparent backgrounds (outline buttons):**
-```css
-.element {
-  background: transparent;
-  transition: var(--transition-button);
-}
+For buttons with a transparent background (like secondary outline), apply the overlay directly as the background:
 
-.element:hover {
+```css
+.btn-secondary:hover {
   background: var(--color-hover-light);
 }
-
-.element:active {
-  background: var(--color-active-light);
-}
 ```
 
-**For dark backgrounds:**
-```css
-.element-dark {
-  background: var(--color-licorice);
-  transition: var(--transition-button);
-}
-
-.element-dark:hover {
-  background:
-    linear-gradient(0deg, var(--color-hover-dark) 0%, var(--color-hover-dark) 100%),
-    var(--color-licorice);
-}
-
-.element-dark:active {
-  background:
-    linear-gradient(0deg, var(--color-active-dark) 0%, var(--color-active-dark) 100%),
-    var(--color-licorice);
-}
-```
+This works because the overlay darkens whatever is beneath it proportionally, so one rule gives every component consistent interaction feedback without needing per-component hover colors.
 
 ---
 
-### Button Types
+### Buttons
 
-**Primary Button**
-- **Use:** The main action on a page
-- **Limit:** ONE per page (sometimes two if absolutely necessary)
-- **Style:** Matcha background, Licorice text
-- **Code:**
+All buttons share the same interaction-state pattern: a 5% Licorice overlay on hover, 11% on active, and 0.5 opacity on disabled.
+
 ```css
+/* ============================================
+   BUTTONS
+   All buttons share the same interaction-state
+   pattern: a 5% Licorice overlay on hover, 11%
+   on active, and 0.5 opacity on disabled.
+   ============================================ */
+
+/* --- Shared button base --- */
+.btn {
+  display: inline-block;
+  border-radius: var(--radius-md);        /* 16px */
+  padding: 10px 20px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-paragraph);  /* 15px */
+  font-weight: 600;
+  line-height: 28px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition-button);
+}
+
+/* --- Primary button (Matcha) ---
+   THE DEFINING RULE: limit to 1–2 per page. */
 .btn-primary {
   background: var(--color-matcha);
   color: var(--color-licorice);
-  font-size: var(--font-size-paragraph);
-  font-weight: 600;
-  padding: var(--spacer-12) var(--spacer-24);
   border: none;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: var(--transition-button);
 }
 
 .btn-primary:hover {
@@ -111,26 +94,21 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
 }
 
 .btn-primary:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+  outline: 2px solid var(--color-licorice);
   outline-offset: 3px;
 }
-```
 
-**Secondary Button**
-- **Use:** Alternative actions, less important than primary
-- **Style:** Licorice border, transparent background, Licorice text
-- **Code:**
-```css
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Secondary button (outline) --- */
 .btn-secondary {
   background: transparent;
   color: var(--color-licorice);
-  font-size: var(--font-size-paragraph);
-  font-weight: 600;
-  padding: calc(var(--spacer-12) - 2px) calc(var(--spacer-24) - 2px);
-  border: 2px solid var(--color-licorice);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: var(--transition-button);
+  border: 1px solid var(--color-neutral-light-32);
 }
 
 .btn-secondary:hover {
@@ -142,14 +120,21 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
 }
 
 .btn-secondary:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+  outline: 2px solid var(--color-licorice);
   outline-offset: 3px;
+}
+
+.btn-secondary:disabled,
+.btn-secondary[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 ```
 
-**Tertiary Button**
-- **Use:** Least important actions, inline links
-- **Style:** Text only, underlined, no background or border
+**Button Usage:**
+- **Primary (Matcha):** The main action on a page. **Limit to ONE per page** (sometimes two if absolutely necessary).
+- **Secondary (Outline):** Alternative actions, less important than primary.
+- **Tertiary (Text-only):** Least important actions, inline links
 - **Code:**
 ```css
 .btn-tertiary {

@@ -89,21 +89,22 @@
         .card__link {
             color: var(--color-licorice);
             font-size: var(--font-size-paragraph);
-            font-weight: var(--font-weight-semibold);
+            font-weight: 600;
             text-decoration: underline;
             text-decoration-color: var(--color-matcha);
             text-decoration-thickness: 2px;
             text-underline-offset: 3px;
-            transition: opacity 0.15s ease;
+            transition: text-decoration-thickness 0.15s ease;
         }
 
         .card__link:hover {
-            opacity: 0.7;
+            text-decoration-thickness: 3px;
         }
 
         .card__link:focus-visible {
-            outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
-            outline-offset: 3px;
+            outline: 2px solid var(--color-licorice);
+            outline-offset: 2px;
+            border-radius: 2px;
         }
 
         /* CTA Section - Shows proper button usage */
@@ -127,19 +128,22 @@
             margin-bottom: var(--spacer-40);
         }
 
-        /* THE ONLY MATCHA BUTTON ON THIS PAGE */
+        /* ===== BUTTONS ===== */
         .btn-primary {
             background: var(--color-matcha);
             color: var(--color-licorice);
+            font-family: var(--font-family);
             font-size: var(--font-size-paragraph);
-            font-weight: var(--font-weight-semibold);
-            padding: var(--spacer-16) var(--spacer-40);
+            font-weight: 600;
+            line-height: 28px;
+            padding: 10px 20px;
             border: none;
             border-radius: var(--radius-md);
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: var(--transition-button);
+            white-space: nowrap;
+            transition: background 0.15s ease;
         }
 
         .btn-primary:hover {
@@ -155,8 +159,13 @@
         }
 
         .btn-primary:focus-visible {
-            outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+            outline: 2px solid var(--color-licorice);
             outline-offset: 3px;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>

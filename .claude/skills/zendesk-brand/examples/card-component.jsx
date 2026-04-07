@@ -149,9 +149,58 @@ const cards = [
 
 export default function CardComponent() {
   return (
-    <div style={styles.container}>
-      {/* Section Title */}
-      <h2 style={styles.sectionTitle}>Built for teams that move fast</h2>
+    <>
+      <style>{`
+        .btn-primary {
+          background: #D1F470;
+          color: #11110D;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 28px;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 16px;
+          cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+          transition: background 0.15s ease;
+        }
+        .btn-primary:hover {
+          background:
+            linear-gradient(0deg, rgba(17,17,13,0.05) 0%, rgba(17,17,13,0.05) 100%),
+            #D1F470;
+        }
+        .btn-primary:active {
+          background:
+            linear-gradient(0deg, rgba(17,17,13,0.11) 0%, rgba(17,17,13,0.11) 100%),
+            #D1F470;
+        }
+        .btn-primary:focus-visible {
+          outline: 2px solid #11110D;
+          outline-offset: 3px;
+        }
+        .card__link {
+          color: #11110D;
+          font-size: 15px;
+          font-weight: 600;
+          text-decoration: underline;
+          text-decoration-color: #D1F470;
+          text-decoration-thickness: 2px;
+          text-underline-offset: 3px;
+          transition: text-decoration-thickness 0.15s ease;
+        }
+        .card__link:hover {
+          text-decoration-thickness: 3px;
+        }
+        .card__link:focus-visible {
+          outline: 2px solid #11110D;
+          outline-offset: 2px;
+          border-radius: 2px;
+        }
+      `}</style>
+      <div style={styles.container}>
+        {/* Section Title */}
+        <h2 style={styles.sectionTitle}>Built for teams that move fast</h2>
 
       {/* Card Grid */}
       <div style={styles.cardGrid}>
@@ -182,11 +231,12 @@ export default function CardComponent() {
           Join thousands of teams who trust Zendesk to deliver exceptional experiences
         </p>
         {/* PRIMARY CTA - The ONLY Matcha element on this page */}
-        <a href="#" style={styles.btnPrimary}>
+        <a href="#" className="btn-primary">
           Start free trial
         </a>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 

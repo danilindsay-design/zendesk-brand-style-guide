@@ -70,19 +70,22 @@
             align-items: center;
         }
 
-        /* Primary CTA - THE ONLY MATCHA ELEMENT ON PAGE */
+        /* ===== BUTTONS ===== */
         .btn-primary {
             background: var(--color-matcha);
             color: var(--color-licorice);
+            font-family: var(--font-family);
             font-size: var(--font-size-paragraph);
-            font-weight: var(--font-weight-semibold);
-            padding: var(--spacer-12) var(--spacer-24);
+            font-weight: 600;
+            line-height: 28px;
+            padding: 10px 20px;
             border: none;
             border-radius: var(--radius-md);
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: var(--transition-button);
+            white-space: nowrap;
+            transition: background 0.15s ease;
         }
 
         .btn-primary:hover {
@@ -98,23 +101,30 @@
         }
 
         .btn-primary:focus-visible {
-            outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+            outline: 2px solid var(--color-licorice);
             outline-offset: 3px;
         }
 
-        /* Secondary CTA - Outline style (NOT Matcha) */
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .btn-secondary {
             background: transparent;
             color: var(--color-licorice);
+            font-family: var(--font-family);
             font-size: var(--font-size-paragraph);
-            font-weight: var(--font-weight-semibold);
-            padding: calc(var(--spacer-12) - 2px) calc(var(--spacer-24) - 2px);
-            border: 2px solid var(--color-licorice);
+            font-weight: 600;
+            line-height: 28px;
+            padding: 10px 20px;
+            border: 1px solid var(--color-neutral-light-32);
             border-radius: var(--radius-md);
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: var(--transition-button);
+            white-space: nowrap;
+            transition: background 0.15s ease;
         }
 
         .btn-secondary:hover {
@@ -126,8 +136,13 @@
         }
 
         .btn-secondary:focus-visible {
-            outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+            outline: 2px solid var(--color-licorice);
             outline-offset: 3px;
+        }
+
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         /* Hero image placeholder */
