@@ -188,4 +188,7 @@
   --focus-ring-color-light: #11110D;
   --focus-ring-color-dark: #FFFFFF;
   --focus-ring-offset: 2px;
+
+  /* Transitions */
+  --transition-button: background 0.15s ease;
 }

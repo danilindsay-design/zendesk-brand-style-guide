@@ -117,11 +117,11 @@ const styles = {
     cursor: 'pointer',
     textDecoration: 'none',
     display: 'inline-block',
-    transition: 'background 0.15s ease'
-    // For proper hover/active/focus states, use CSS classes:
-    // :hover { background: linear-gradient(0deg, rgba(17,17,13,0.05) 0%, rgba(17,17,13,0.05) 100%), #D1F470; }
-    // :active { background: linear-gradient(0deg, rgba(17,17,13,0.11) 0%, rgba(17,17,13,0.11) 100%), #D1F470; }
-    // :focus-visible { outline: 2px solid #11110D; outline-offset: 3px; }
+    transition: 'background 0.15s ease'  // Or use tokens.transitions.button in CSS
+    // For proper hover/active/focus states, use CSS classes with token variables:
+    // :hover { background: linear-gradient(0deg, var(--color-hover-light) 0%, var(--color-hover-light) 100%), var(--color-matcha); }
+    // :active { background: linear-gradient(0deg, var(--color-active-light) 0%, var(--color-active-light) 100%), var(--color-matcha); }
+    // :focus-visible { outline: var(--focus-ring-width) solid var(--focus-ring-color-light); outline-offset: 3px; }
   }
 };
 

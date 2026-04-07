@@ -24,7 +24,7 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
 ```css
 .element {
   background: var(--color-matcha);
-  transition: background 0.15s ease;
+  transition: var(--transition-button);
 }
 
 .element:hover {
@@ -44,7 +44,7 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
 ```css
 .element {
   background: transparent;
-  transition: background 0.15s ease;
+  transition: var(--transition-button);
 }
 
 .element:hover {
@@ -60,7 +60,7 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
 ```css
 .element-dark {
   background: var(--color-licorice);
-  transition: background 0.15s ease;
+  transition: var(--transition-button);
 }
 
 .element-dark:hover {
@@ -95,7 +95,7 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: var(--transition-button);
 }
 
 .btn-primary:hover {
@@ -130,7 +130,7 @@ This works because the overlay darkens (light mode) or lightens (dark mode) what
   border: 2px solid var(--color-licorice);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: var(--transition-button);
 }
 
 .btn-secondary:hover {
