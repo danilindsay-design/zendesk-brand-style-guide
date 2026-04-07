@@ -6,7 +6,7 @@
     <title>Card Component Example - Zendesk Brand</title>
     <style>
         /* Import Zendesk brand tokens */
-        @import url('../tokens.css');
+        @import url('../assets/tokens.css');
 
         * {
             margin: 0;
@@ -46,7 +46,7 @@
         .card {
             background: var(--color-coconut);
             border: 1px solid var(--color-neutral-light-11);
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             padding: var(--spacer-24);
             transition: box-shadow 0.2s;
         }
@@ -60,7 +60,7 @@
             width: 48px;
             height: 48px;
             background: var(--color-sesame);
-            border-radius: 8px;
+            border-radius: var(--radius-xs);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -89,7 +89,7 @@
         .card__link {
             color: var(--color-licorice);
             font-size: var(--font-size-paragraph);
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             text-decoration: underline;
             text-decoration-color: var(--color-matcha);
             text-decoration-thickness: 2px;
@@ -105,7 +105,7 @@
         /* CTA Section - Shows proper button usage */
         .cta-section {
             background: var(--color-sesame);
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             padding: var(--spacer-56);
             margin-top: var(--spacer-72);
             text-align: center;
@@ -128,10 +128,10 @@
             background: var(--color-matcha);
             color: var(--color-licorice);
             font-size: var(--font-size-paragraph);
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             padding: var(--spacer-16) var(--spacer-40);
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-xs);
             cursor: pointer;
             text-decoration: none;
             display: inline-block;

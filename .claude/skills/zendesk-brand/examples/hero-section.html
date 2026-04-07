@@ -6,7 +6,7 @@
     <title>Hero Section Example - Zendesk Brand</title>
     <style>
         /* Import Zendesk brand tokens */
-        @import url('../tokens.css');
+        @import url('../assets/tokens.css');
 
         /* Minimal reset */
         * {
@@ -75,10 +75,10 @@
             background: var(--color-matcha);
             color: var(--color-licorice);
             font-size: var(--font-size-paragraph);
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             padding: var(--spacer-12) var(--spacer-24);
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-xs);
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
@@ -94,10 +94,10 @@
             background: transparent;
             color: var(--color-licorice);
             font-size: var(--font-size-paragraph);
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             padding: calc(var(--spacer-12) - 2px) calc(var(--spacer-24) - 2px);
             border: 2px solid var(--color-licorice);
-            border-radius: 8px;
+            border-radius: var(--radius-xs);
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
@@ -111,7 +111,7 @@
         /* Hero image placeholder */
         .hero__image {
             background: var(--color-sesame);
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             aspect-ratio: 4 / 3;
             display: flex;
             align-items: center;
@@ -120,7 +120,7 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .hero {
                 grid-template-columns: 1fr;
                 padding: var(--spacer-56) var(--spacer-24);

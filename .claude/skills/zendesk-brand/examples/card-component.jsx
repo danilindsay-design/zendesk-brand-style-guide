@@ -38,7 +38,7 @@ const styles = {
   card: {
     background: tokens.colors.primary.coconut,
     border: `1px solid ${tokens.colors.neutral.light[11]}`,
-    borderRadius: '12px',
+    borderRadius: tokens.borderRadius.sm,
     padding: tokens.spacing[24],
     transition: 'box-shadow 0.2s'
   },
@@ -47,7 +47,7 @@ const styles = {
     width: '48px',
     height: '48px',
     background: tokens.colors.primary.sesame,
-    borderRadius: '8px',
+    borderRadius: tokens.borderRadius.xs,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -74,7 +74,7 @@ const styles = {
   cardLink: {
     color: tokens.colors.primary.licorice,
     fontSize: tokens.typography.paragraph.fontSize,
-    fontWeight: 600,
+    fontWeight: tokens.typography.fontWeightSemibold,
     textDecoration: 'underline',
     textDecorationColor: tokens.colors.primary.matcha,
     textDecorationThickness: '2px',
@@ -83,7 +83,7 @@ const styles = {
 
   ctaSection: {
     background: tokens.colors.primary.sesame,
-    borderRadius: '12px',
+    borderRadius: tokens.borderRadius.sm,
     padding: tokens.spacing[56],
     marginTop: tokens.spacing[72],
     textAlign: 'center'
@@ -106,10 +106,10 @@ const styles = {
     background: tokens.colors.primary.matcha,
     color: tokens.colors.primary.licorice,
     fontSize: tokens.typography.paragraph.fontSize,
-    fontWeight: 600,
+    fontWeight: tokens.typography.fontWeightSemibold,
     padding: `${tokens.spacing[16]} ${tokens.spacing[40]}`,
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: tokens.borderRadius.xs,
     cursor: 'pointer',
     textDecoration: 'none',
     display: 'inline-block'
