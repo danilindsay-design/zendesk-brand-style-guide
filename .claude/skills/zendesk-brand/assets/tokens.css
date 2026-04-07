@@ -1,6 +1,13 @@
 /**
  * Zendesk Brand Design Tokens
  *
+ * This file is the AUTHORITATIVE source of truth for all design values
+ * in the Zendesk brand system. If a value in any reference file conflicts
+ * with this file, this file wins. Never hardcode values — always reference
+ * a token from this file.
+ *
+ * Source: Zendesk Brand Style Guide v2026
+ *
  * Usage:
  *   @import 'tokens.css';
  *   OR copy these :root variables into your stylesheet
