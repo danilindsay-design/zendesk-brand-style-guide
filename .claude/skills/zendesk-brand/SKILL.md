@@ -15,17 +15,6 @@ This is the most important rule in the Zendesk visual system. Matcha's power com
 
 ---
 
-## Quick Start
-
-When generating code, **always**:
-1. Import `assets/tokens.css` or reference `assets/tokens.json`
-2. Follow THE DEFINING RULE (1-2 Matcha elements max)
-3. Use correct typography (H1: 42px/500, H2: 30px/500, Body: 15px/400)
-4. Use spacing scale (8, 12, 16, 24, 40, 56, 72, 96)
-5. Reference `examples/` for working patterns
-
----
-
 ## Design Tokens
 
 **Always use these files when generating code:**
@@ -184,22 +173,11 @@ Each topic has its own detailed guide:
 
 When creating Zendesk-branded work:
 
-1. **Read THE DEFINING RULE** - Remember: 1-2 Matcha elements max per page
-2. **Import tokens** - Use `assets/tokens.css` or `assets/tokens.json`
-3. **Reference examples** - Look at `examples/` for working patterns
-4. **Check relevant guides** - Read specific `references/` files for details
-5. **Verify don'ts** - Review anti-patterns above to avoid common mistakes
-6. **Test accessibility** - Verify contrast, keyboard nav, screen reader support
-
----
-
-## When In Doubt
-
-1. Check `examples/` for working code
-2. Read the relevant `references/` guide
-3. Verify against THE DEFINING RULE
-4. Test with tokens (don't hardcode values)
-5. Review anti-patterns list above
+1. **Import tokens** - Use `assets/tokens.css` or `assets/tokens.json` (never hardcode)
+2. **Follow THE DEFINING RULE** - 1-2 Matcha elements max per page
+3. **Reference examples** - Check `examples/` for working patterns
+4. **Read relevant guides** - See `references/` for typography, colors, spacing, components, voice, accessibility
+5. **Avoid anti-patterns** - Review don'ts above
 
 ---
 
