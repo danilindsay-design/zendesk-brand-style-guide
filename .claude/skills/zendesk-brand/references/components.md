@@ -22,6 +22,25 @@ This is the most important component rule.
   padding: var(--spacer-12) var(--spacer-24);
   border: none;
   border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+  background:
+    linear-gradient(0deg, var(--color-hover-light) 0%, var(--color-hover-light) 100%),
+    var(--color-matcha);
+}
+
+.btn-primary:active {
+  background:
+    linear-gradient(0deg, var(--color-active-light) 0%, var(--color-active-light) 100%),
+    var(--color-matcha);
+}
+
+.btn-primary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+  outline-offset: 3px;
 }
 ```
 
@@ -38,6 +57,21 @@ This is the most important component rule.
   padding: calc(var(--spacer-12) - 2px) calc(var(--spacer-24) - 2px);
   border: 2px solid var(--color-licorice);
   border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--color-hover-light);
+}
+
+.btn-secondary:active {
+  background: var(--color-active-light);
+}
+
+.btn-secondary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+  outline-offset: 3px;
 }
 ```
 

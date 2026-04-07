@@ -82,11 +82,24 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: opacity 0.2s;
+            transition: background 0.15s ease;
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
+            background:
+                linear-gradient(0deg, var(--color-hover-light) 0%, var(--color-hover-light) 100%),
+                var(--color-matcha);
+        }
+
+        .btn-primary:active {
+            background:
+                linear-gradient(0deg, var(--color-active-light) 0%, var(--color-active-light) 100%),
+                var(--color-matcha);
+        }
+
+        .btn-primary:focus-visible {
+            outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+            outline-offset: 3px;
         }
 
         /* Secondary CTA - Outline style (NOT Matcha) */
@@ -101,11 +114,20 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: background 0.2s;
+            transition: background 0.15s ease;
         }
 
         .btn-secondary:hover {
             background: var(--color-hover-light);
+        }
+
+        .btn-secondary:active {
+            background: var(--color-active-light);
+        }
+
+        .btn-secondary:focus-visible {
+            outline: var(--focus-ring-width) solid var(--focus-ring-color-light);
+            outline-offset: 3px;
         }
 
         /* Hero image placeholder */

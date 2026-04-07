@@ -78,7 +78,11 @@ const styles = {
     textDecoration: 'underline',
     textDecorationColor: tokens.colors.primary.matcha,
     textDecorationThickness: '2px',
-    textUnderlineOffset: '3px'
+    textUnderlineOffset: '3px',
+    transition: 'opacity 0.15s ease'
+    // For proper hover/focus states, use CSS classes:
+    // :hover { opacity: 0.7; }
+    // :focus-visible { outline: 2px solid; outline-offset: 3px; }
   },
 
   ctaSection: {
@@ -112,7 +116,12 @@ const styles = {
     borderRadius: tokens.borderRadius.md,
     cursor: 'pointer',
     textDecoration: 'none',
-    display: 'inline-block'
+    display: 'inline-block',
+    transition: 'background 0.15s ease'
+    // For proper hover/active/focus states, use CSS classes:
+    // :hover { background: linear-gradient(0deg, rgba(17,17,13,0.05) 0%, rgba(17,17,13,0.05) 100%), #D1F470; }
+    // :active { background: linear-gradient(0deg, rgba(17,17,13,0.11) 0%, rgba(17,17,13,0.11) 100%), #D1F470; }
+    // :focus-visible { outline: 2px solid #11110D; outline-offset: 3px; }
   }
 };
 
@@ -150,12 +159,7 @@ export default function CardComponent() {
           <div
             key={index}
             style={styles.card}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = tokens.shadows.s1;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-            }}
+            className="card"
           >
             <div style={styles.cardIcon}>{card.icon}</div>
             <h3 style={styles.cardTitle}>{card.title}</h3>
@@ -163,14 +167,7 @@ export default function CardComponent() {
             <a
               href={card.link}
               style={styles.cardLink}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = tokens.colors.primary.matcha;
-                e.currentTarget.style.textDecoration = 'none';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.textDecoration = 'underline';
-              }}
+              className="card__link"
             >
               Learn more
             </a>
@@ -204,6 +201,10 @@ export default function CardComponent() {
  * - Sentence case headlines
  * - Direct address: "your team," "you"
  * - Concise copy: 2-3 sentences per card
+ *
+ * IMPORTANT: Inline styles don't support :hover, :active, or :focus-visible.
+ * For proper interactive states, use CSS classes or styled-components.
+ * See comments in the styles object for correct hover/focus patterns.
  *
  * For CSS Modules or Styled Components, convert inline styles
  * but maintain token references.
