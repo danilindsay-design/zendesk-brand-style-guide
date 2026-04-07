@@ -122,9 +122,6 @@ Use on dark backgrounds.
 - Red for error states
 - Warnings, destructive actions
 
-**Decaf** `#4E493A`
-- Muted brown for secondary text
-
 ---
 
 ## Data Visualization Palettes
