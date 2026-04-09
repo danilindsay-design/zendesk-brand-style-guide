@@ -3,1660 +3,1547 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greenhouse 3.0 Design System - Machine-Readable Reference</title>
+    <title>Zendesk Brand Style Guide — Machine Reference</title>
     <style>
-        @font-face {
-            font-family: 'Zendesk Mono';
-            src: url('fonts/zendesk-mono/ZendeskMono-Regular.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Zendesk Mono';
-            src: url('fonts/zendesk-mono/ZendeskMono-Medium.woff2') format('woff2');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Zendesk Mono';
-            src: url('fonts/zendesk-mono/ZendeskMono-SemiBold.woff2') format('woff2');
-            font-weight: 600;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Zendesk Mono';
-            src: url('fonts/zendesk-mono/ZendeskMono-Bold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
+        /* ============================================================
+           FONTS — Mono primary, Sans for the H1 only
+           ============================================================ */
+        @font-face { font-family: 'Zendesk Sans'; src: url('fonts/zendesk-sans/ZendeskSans-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+        @font-face { font-family: 'Zendesk Sans'; src: url('fonts/zendesk-sans/ZendeskSans-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; }
+        @font-face { font-family: 'Zendesk Mono'; src: url('fonts/zendesk-mono/ZendeskMono-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+        @font-face { font-family: 'Zendesk Mono'; src: url('fonts/zendesk-mono/ZendeskMono-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; }
+        @font-face { font-family: 'Zendesk Mono'; src: url('fonts/zendesk-mono/ZendeskMono-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+        @font-face { font-family: 'Zendesk Mono'; src: url('fonts/zendesk-mono/ZendeskMono-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
 
+        /* ============================================================
+           TOKENS
+           ============================================================ */
         :root {
-            --color-coconut: #FFFFFF;
             --color-licorice: #11110D;
+            --color-coconut: #FFFFFF;
             --color-matcha: #D1F470;
+            --color-matcha-dim: #A8C955;
             --color-sesame: #F5F5F2;
-            --color-sesame-200: #E5E5E2;
-            --color-licorice-79: rgba(17, 17, 13, 0.79);
-            --color-licorice-65: rgba(17, 17, 13, 0.65);
-            --color-licorice-15: rgba(17, 17, 13, 0.15);
+            --color-pineapple: #FEEB7E;
+            --color-cactus: #A1D78F;
+
+            --color-coconut-79: rgba(255, 255, 255, 0.79);
+            --color-coconut-47: rgba(255, 255, 255, 0.47);
+            --color-coconut-32: rgba(255, 255, 255, 0.32);
+            --color-coconut-13: rgba(255, 255, 255, 0.13);
+            --color-coconut-7: rgba(255, 255, 255, 0.07);
+            --color-coconut-5: rgba(255, 255, 255, 0.05);
+
+            /* Syntax highlighting palette */
+            --syn-key: #D1F470;
+            --syn-string: #FFFFFF;
+            --syn-number: #FEEB7E;
+            --syn-bool: #A1D78F;
+            --syn-null: rgba(255, 255, 255, 0.47);
+            --syn-punct: rgba(255, 255, 255, 0.47);
+            --syn-comment: rgba(255, 255, 255, 0.32);
+            --syn-tag: #FEEB7E;
+            --syn-attr: #D1F470;
+
+            --font-sans: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Zendesk Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+            --s-4: 4px; --s-8: 8px; --s-12: 12px; --s-16: 16px;
+            --s-24: 24px; --s-40: 40px; --s-56: 56px; --s-72: 72px;
+            --s-96: 96px; --s-128: 128px;
+
+            --nav-width: 280px;
+            --content-max: 980px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Zendesk Mono', monospace;
-            background-color: var(--color-licorice);
+            font-family: var(--font-mono);
+            background: var(--color-licorice);
             color: var(--color-coconut);
-            line-height: 1.6;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        a { color: inherit; }
+        button { font-family: inherit; }
+
+        /* ============================================================
+           SIDEBAR — same shape as human page, inverted accent
+           ============================================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--nav-width);
+            height: 100vh;
+            background: #0A0A07;
+            border-right: 1px solid var(--color-coconut-7);
+            padding: var(--s-56) var(--s-40);
             display: flex;
+            flex-direction: column;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .nav__brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: var(--s-72);
+        }
+
+        .nav__mark {
+            width: 36px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .nav__brand-text {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-coconut);
+            line-height: 1.4;
+        }
+
+        .nav__brand-text span {
+            display: block;
+            color: var(--color-coconut-47);
+            margin-top: 2px;
+        }
+
+        .nav__heading {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-coconut-47);
+            margin-bottom: var(--s-24);
+        }
+
+        .nav__menu {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: var(--s-56);
+        }
+
+        .nav__item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 10px 0 10px 14px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--color-coconut-79);
+            text-decoration: none;
+            border-left: 1px solid var(--color-coconut-13);
+            transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
+        }
+
+        .nav__item:hover {
+            color: var(--color-coconut);
+            border-left-color: var(--color-coconut-32);
+        }
+
+        .nav__item--active {
+            color: var(--color-matcha);
+            border-left-color: var(--color-matcha);
+            padding-left: 16px;
+        }
+
+        .nav__num {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-coconut-47);
+            min-width: 18px;
+        }
+
+        .nav__item--active .nav__num { color: var(--color-matcha); }
+
+        .nav__footer {
+            margin-top: auto;
+            padding-top: var(--s-24);
+            border-top: 1px solid var(--color-coconut-13);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-coconut-47);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           PAGE
+           ============================================================ */
+        .page {
+            margin-left: var(--nav-width);
             min-height: 100vh;
         }
 
-        .main-content {
-            flex: 1;
-            padding: 80px 120px 120px;
-            max-width: 1200px;
+        .container {
+            max-width: var(--content-max);
             margin: 0 auto;
+            padding: 0 var(--s-72);
         }
 
-        .header {
-            margin-bottom: 72px;
+        /* ============================================================
+           HERO — sibling to human page
+           ============================================================ */
+        .hero {
+            padding: var(--s-96) 0 var(--s-128);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-coconut-7);
         }
 
-        .header .supertitle {
-            font-family: 'Zendesk Mono', monospace;
-            font-size: 12px;
+        .hero__inner {
+            max-width: var(--content-max);
+            margin: 0 auto;
+            padding: 0 var(--s-72);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero__supertitle {
+            font-family: var(--font-mono);
+            font-size: 11px;
             font-weight: 500;
-            letter-spacing: 0.48px;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
+            color: var(--color-matcha);
+            margin-bottom: var(--s-24);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero__supertitle::before {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--color-matcha);
+        }
+
+        .hero__title {
+            font-family: var(--font-sans);
+            font-size: clamp(56px, 8vw, 108px);
+            font-weight: 500;
+            line-height: 0.92;
+            letter-spacing: -0.025em;
             color: var(--color-coconut);
-            margin-bottom: 20px;
+            margin-bottom: var(--s-24);
+        }
+
+        .hero__title em {
+            font-family: var(--font-mono);
+            font-style: normal;
+            font-weight: 400;
+            color: var(--color-matcha);
+            font-size: clamp(18px, 2.25vw, 28px);
+            display: block;
+            letter-spacing: -0.01em;
+            line-height: 1;
+            margin-top: var(--s-24);
+        }
+
+        .hero__subtitle {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--color-coconut-79);
+            max-width: 380px;
+        }
+
+        .hero__art {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            max-width: 380px;
+            margin-left: auto;
+        }
+
+        .hero__art svg {
+            width: 100%;
+            height: 100%;
             display: block;
         }
 
-        .header h1 {
-            font-size: 48px;
-            font-weight: 400;
-            line-height: 1;
-            margin-bottom: 32px;
-            color: var(--color-coconut);
-            white-space: nowrap;
-        }
-
-        .header .subtitle {
-            font-size: 20px;
-            font-weight: 500;
-            line-height: 30px;
-            color: var(--color-coconut);
-            max-width: 600px;
-        }
-
-        .section {
-            margin-bottom: 96px;
-        }
-
-        .section h2 {
-            font-size: 30px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            color: var(--color-coconut);
-        }
-
-        .section h3 {
-            font-size: 21px;
-            font-weight: 500;
-            margin-bottom: 16px;
-            margin-top: 40px;
-            color: var(--color-coconut);
-        }
-
-        .section p {
-            font-size: 15px;
-            color: var(--color-licorice-79);
-            margin-bottom: 24px;
-            line-height: 1.45;
-        }
-
-        #overview p {
-            color: var(--color-coconut);
-        }
-
-        .code-block {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--color-licorice-15);
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .code-block pre {
-            font-family: 'Zendesk Mono', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--color-coconut);
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .copy-button {
+        /* Subtle dot grid background */
+        .hero::after {
+            content: '';
             position: absolute;
-            top: 16px;
-            right: 16px;
-            background-color: var(--color-matcha);
-            color: var(--color-licorice);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-family: 'Zendesk Mono', monospace;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, var(--color-coconut-7) 1px, transparent 0);
+            background-size: 28px 28px;
+            opacity: 0.6;
+            pointer-events: none;
         }
 
-        .copy-button:hover {
-            opacity: 0.85;
+        .hero__meta {
+            position: absolute;
+            bottom: var(--s-40);
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: var(--content-max);
+            width: 100%;
+            padding: 0 var(--s-72);
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-coconut-47);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            z-index: 1;
         }
 
-        .copy-button:active {
-            opacity: 0.7;
+        /* ============================================================
+           SECTIONS
+           ============================================================ */
+        .section {
+            padding: var(--s-128) 0;
+            position: relative;
+            border-bottom: 1px solid var(--color-coconut-7);
         }
 
-        .footer {
-            margin-top: 120px;
-            padding-top: 40px;
-            border-top: 2px solid var(--color-licorice-15);
-            text-align: center;
-            font-size: 13px;
-            color: var(--color-licorice-65);
+        .section:last-of-type { border-bottom: none; }
+
+        .section__marker {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-matcha);
+            margin-bottom: var(--s-24);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .badge {
-            display: inline-block;
-            background-color: var(--color-matcha);
-            color: var(--color-licorice);
-            padding: 4px 12px;
-            border-radius: 4px;
+        .section__marker::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--color-matcha);
+        }
+
+        .section__title {
+            font-family: var(--font-sans);
+            font-size: clamp(36px, 4.5vw, 56px);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--color-coconut);
+            margin-bottom: var(--s-24);
+        }
+
+        .section__lede {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--color-coconut-79);
+            max-width: 580px;
+            margin-bottom: var(--s-72);
+        }
+
+        .section__subhead {
+            font-family: var(--font-mono);
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-left: 12px;
+            letter-spacing: 0.1em;
+            color: var(--color-matcha);
+            margin-top: var(--s-56);
+            margin-bottom: var(--s-16);
+            padding-bottom: var(--s-12);
+            border-bottom: 1px solid var(--color-coconut-7);
         }
 
-        .floating-toggle {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--color-licorice);
-            padding: 8px;
-            border-radius: 2px;
+        .section__subhead:first-of-type { margin-top: 0; }
+
+        /* ============================================================
+           CODE BLOCKS — with syntax highlighting
+           ============================================================ */
+        .code-block {
+            background: #0A0A07;
+            border: 1px solid var(--color-coconut-7);
+            border-radius: 12px;
+            margin-bottom: var(--s-24);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-block__head {
             display: flex;
-            gap: 12px;
             align-items: center;
-            z-index: 1000;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--color-coconut-7);
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        .toggle-button {
-            font-family: 'Zendesk Mono', monospace;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 23px;
-            padding: 10px 16px;
-            border-radius: 16px;
-            border: none;
+        .code-block__name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--color-coconut-47);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-block__dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-block__dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-coconut-13);
+        }
+
+        .code-block__dots span:nth-child(2) { background: var(--color-coconut-13); }
+        .code-block__dots span:nth-child(3) { background: var(--color-coconut-13); }
+
+        .copy-button {
+            background: transparent;
+            color: var(--color-matcha);
+            border: 1px solid var(--color-matcha);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .copy-button:hover {
+            background: var(--color-matcha);
+            color: var(--color-licorice);
+        }
+
+        .copy-button.copied {
+            background: var(--color-matcha);
+            color: var(--color-licorice);
+            border-color: var(--color-matcha);
+        }
+
+        .code-block pre {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--color-coconut);
+            padding: 24px;
+            overflow-x: auto;
+            white-space: pre;
+            tab-size: 2;
+        }
+
+        /* Syntax highlighting */
+        .syn-key      { color: var(--syn-key); }
+        .syn-string   { color: var(--syn-string); }
+        .syn-number   { color: var(--syn-number); }
+        .syn-bool     { color: var(--syn-bool); }
+        .syn-null     { color: var(--syn-null); }
+        .syn-punct    { color: var(--syn-punct); }
+        .syn-comment  { color: var(--syn-comment); font-style: italic; }
+        .syn-tag      { color: var(--syn-tag); }
+        .syn-attr     { color: var(--syn-attr); }
+
+        /* ============================================================
+           OVERVIEW LIST
+           ============================================================ */
+        .overview-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--s-16) var(--s-40);
+            margin-top: var(--s-40);
+            margin-bottom: var(--s-40);
+        }
+
+        .overview-list li {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--color-coconut-79);
+            line-height: 1.55;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .overview-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--color-matcha);
+        }
+
+        .overview-list strong {
+            color: var(--color-coconut);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .overview-quote {
+            font-family: var(--font-sans);
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+            color: var(--color-coconut);
+            padding: var(--s-40);
+            border-left: 3px solid var(--color-matcha);
+            background: var(--color-coconut-5);
+            border-radius: 0 12px 12px 0;
+            margin-top: var(--s-40);
+        }
+
+        .overview-quote em {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--color-matcha);
+        }
+
+        /* ============================================================
+           FLOATING TOGGLE
+           ============================================================ */
+        .toggle {
+            position: fixed;
+            bottom: var(--s-40);
+            left: 50%;
+            transform: translateX(calc(-50% + var(--nav-width) / 2));
+            background: rgba(20, 20, 16, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 6px;
+            border-radius: 999px;
+            display: flex;
+            gap: 4px;
+            z-index: 200;
+            border: 1px solid var(--color-coconut-13);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .toggle__btn {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 10px 22px;
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            color: var(--color-coconut-79);
             text-decoration: none;
-            display: inline-block;
-            min-width: 101px;
-            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .toggle-button.active {
-            background-color: var(--color-matcha);
+        .toggle__btn:hover { color: var(--color-coconut); }
+
+        .toggle__btn--active {
+            background: var(--color-matcha);
             color: var(--color-licorice);
         }
 
-        .toggle-button.inactive {
-            background-color: var(--color-coconut);
-            color: var(--color-licorice);
-            border: 1px solid rgba(17, 17, 13, 0.32);
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .nav { transform: translateX(-100%); }
+            .page { margin-left: 0; }
+            .toggle { transform: translateX(-50%); }
+            .hero__inner { grid-template-columns: 1fr; }
+            .hero__art { max-width: 280px; margin-left: 0; }
+            .overview-list { grid-template-columns: 1fr; }
         }
 
-        .toggle-button:hover {
-            opacity: 0.9;
+        @media (max-width: 640px) {
+            .container,
+            .hero__inner { padding: 0 var(--s-24); }
+            .code-block pre { font-size: 11px; padding: 16px; }
         }
     </style>
 </head>
 <body>
-    <div class="main-content">
-        <div class="header">
-            <p class="supertitle">ZENDESK BRAND SYSTEM</p>
-            <h1>Brand style guide</h1>
-            <p class="subtitle">Zendesk's AI friendly digital design and development library</p>
+
+    <!-- ============================================================
+         SIDEBAR
+         ============================================================ -->
+    <nav class="nav">
+        <div class="nav__brand">
+            <svg class="nav__mark" viewBox="0 0 144 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M77.4095 104.5C77.5392 86.3085 92.3259 71.6016 110.548 71.6016C128.77 71.6016 143.556 86.3085 143.686 104.5L77.4095 104.5Z" fill="#FFFFFF"/>
+                <path d="M143.5 0H77.5V77L143.5 0Z" fill="#FFFFFF"/>
+                <path d="M66.2766 0C66.1468 18.1914 51.3605 32.8983 33.1385 32.8984C14.9165 32.8984 0.12976 18.1915 0 0L66.2766 0Z" fill="#FFFFFF"/>
+                <path d="M0 104.5L66.5 104.5L66.5 27.5L0 104.5Z" fill="#FFFFFF"/>
+            </svg>
+            <div class="nav__brand-text">
+                Zendesk
+                <span>Brand System</span>
+            </div>
         </div>
 
-        <section id="overview" class="section">
-            <h2>Overview</h2>
-            <p>This document provides machine-readable access to the Greenhouse 3.0 design system for AI agents and developers. All design tokens, brand guidelines, usage rules, and component examples are embedded as structured JSON data and can be accessed programmatically.</p>
+        <div class="nav__heading">Reference</div>
+        <div class="nav__menu">
+            <a href="#overview" class="nav__item nav__item--active"><span class="nav__num">00</span>Overview</a>
+            <a href="#colors" class="nav__item"><span class="nav__num">01</span>Colors</a>
+            <a href="#typography" class="nav__item"><span class="nav__num">02</span>Typography</a>
+            <a href="#spacing" class="nav__item"><span class="nav__num">03</span>Spacing</a>
+            <a href="#breakpoints" class="nav__item"><span class="nav__num">04</span>Breakpoints</a>
+            <a href="#shadows" class="nav__item"><span class="nav__num">05</span>Shadows</a>
+            <a href="#radius" class="nav__item"><span class="nav__num">06</span>Border Radius</a>
+            <a href="#grid" class="nav__item"><span class="nav__num">07</span>Grid</a>
+            <a href="#brand" class="nav__item"><span class="nav__num">08</span>Brand Strategy</a>
+            <a href="#usage" class="nav__item"><span class="nav__num">09</span>Usage Rules</a>
+            <a href="#components" class="nav__item"><span class="nav__num">10</span>Components</a>
+            <a href="#patterns" class="nav__item"><span class="nav__num">11</span>Layout Patterns</a>
+            <a href="#a11y" class="nav__item"><span class="nav__num">12</span>Accessibility</a>
+        </div>
 
-            <p style="margin-top: 24px;"><strong>What's included:</strong></p>
-            <ul style="list-style: none; padding: 0; margin-top: 16px; color: var(--color-coconut);">
-                <li style="margin-bottom: 12px;">→ <strong>Design Tokens:</strong> Colors, typography, spacing, breakpoints, shadows, border radius, grid system</li>
-                <li style="margin-bottom: 12px;">→ <strong>Brand Strategy:</strong> Creative platform, brand attributes, graphic language principles</li>
-                <li style="margin-bottom: 12px;">→ <strong>Usage Guidelines:</strong> Color hierarchy, button hierarchy, typography usage rules</li>
-                <li style="margin-bottom: 12px;">→ <strong>Component Examples:</strong> Production-ready code for buttons, forms, cards, and more</li>
-                <li style="margin-bottom: 12px;">→ <strong>Layout Patterns:</strong> Hero sections, feature grids, content sections with responsive examples</li>
-                <li style="margin-bottom: 12px;">→ <strong>Accessibility:</strong> WCAG 2.1 AA compliance, color contrast, keyboard navigation, ARIA labels</li>
-            </ul>
+        <div class="nav__footer">
+            Greenhouse 3.0<br>
+            v2026.04
+        </div>
+    </nav>
 
-            <p style="margin-top: 24px;">Use the copy buttons to extract specific sections, or access the full JSON structure at the bottom of this page.</p>
-        </section>
+    <!-- ============================================================
+         PAGE
+         ============================================================ -->
+    <main class="page">
 
-        <section id="colors" class="section">
-            <h2>Colors <span class="badge">Primary Tokens</span></h2>
-
-            <h3>Primary Colors</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('colors-primary')">Copy JSON</button>
-                <pre id="colors-primary">{
-  "coconut": {
-    "value": "#FFFFFF",
-    "type": "color",
-    "description": "Primary background (light mode)"
-  },
-  "licorice": {
-    "value": "#11110D",
-    "type": "color",
-    "description": "Primary text and dark background"
-  },
-  "matcha": {
-    "value": "#D1F470",
-    "type": "color",
-    "description": "Primary CTA color (use sparingly)"
-  },
-  "sesame": {
-    "value": "#F5F5F2",
-    "type": "color",
-    "description": "Secondary background"
-  }
-}</pre>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero__inner">
+                <div>
+                    <div class="hero__supertitle">Zendesk Brand System</div>
+                    <h1 class="hero__title">Brand<br>style guide<em>// machine reference</em></h1>
+                    <p class="hero__subtitle">Structured tokens, rules, and snippets — for AI agents, build pipelines, and developers wiring the brand into product surfaces.</p>
+                </div>
             </div>
-
-            <h3>Secondary Colors</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('colors-secondary')">Copy JSON</button>
-                <pre id="colors-secondary">{
-  "cactus": {
-    "value": "#7DAD19",
-    "type": "color"
-  },
-  "pineapple": {
-    "value": "#FFD424",
-    "type": "color"
-  },
-  "shamrock": {
-    "value": "#53A318",
-    "type": "color"
-  },
-  "fern": {
-    "value": "#203524",
-    "type": "color"
-  },
-  "coal": {
-    "value": "#0E0E0B",
-    "type": "color"
-  }
-}</pre>
-            </div>
-
-            <h3>Extended Palette - Matcha Scale</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('colors-matcha-scale')">Copy JSON</button>
-                <pre id="colors-matcha-scale">{
-  "matcha-000": {
-    "value": "#F8FEDB",
-    "type": "color"
-  },
-  "matcha-100": {
-    "value": "#F0FCBC",
-    "type": "color"
-  },
-  "matcha-200": {
-    "value": "#E5FA91",
-    "type": "color"
-  },
-  "matcha-300": {
-    "value": "#D1F470",
-    "type": "color"
-  },
-  "matcha-400": {
-    "value": "#B4DC4E",
-    "type": "color"
-  },
-  "matcha-500": {
-    "value": "#9CBF3F",
-    "type": "color"
-  },
-  "matcha-600": {
-    "value": "#7DA031",
-    "type": "color"
-  }
-}</pre>
-            </div>
-
-            <h3>Extended Palette - Sesame Scale</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('colors-sesame-scale')">Copy JSON</button>
-                <pre id="colors-sesame-scale">{
-  "sesame-100": {
-    "value": "#FCFCFB",
-    "type": "color"
-  },
-  "sesame-200": {
-    "value": "#E5E5E2",
-    "type": "color"
-  },
-  "sesame-300": {
-    "value": "#D4D4D1",
-    "type": "color"
-  },
-  "sesame-400": {
-    "value": "#C0C0BC",
-    "type": "color"
-  },
-  "sesame-500": {
-    "value": "#A8A8A3",
-    "type": "color"
-  },
-  "sesame-600": {
-    "value": "#8F8F8A",
-    "type": "color"
-  },
-  "sesame-700": {
-    "value": "#757571",
-    "type": "color"
-  }
-}</pre>
-            </div>
-
-            <h3>Neutrals - Light Mode</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('colors-neutrals-light')">Copy JSON</button>
-                <pre id="colors-neutrals-light">{
-  "licorice-5": {
-    "value": "rgba(17, 17, 13, 0.05)",
-    "type": "color"
-  },
-  "licorice-15": {
-    "value": "rgba(17, 17, 13, 0.15)",
-    "type": "color"
-  },
-  "licorice-30": {
-    "value": "rgba(17, 17, 13, 0.30)",
-    "type": "color"
-  },
-  "licorice-50": {
-    "value": "rgba(17, 17, 13, 0.50)",
-    "type": "color"
-  },
-  "licorice-65": {
-    "value": "rgba(17, 17, 13, 0.65)",
-    "type": "color"
-  },
-  "licorice-79": {
-    "value": "rgba(17, 17, 13, 0.79)",
-    "type": "color"
-  }
-}</pre>
-            </div>
-
-            <h3>Neutrals - Dark Mode</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('colors-neutrals-dark')">Copy JSON</button>
-                <pre id="colors-neutrals-dark">{
-  "white-5": {
-    "value": "rgba(255, 255, 255, 0.05)",
-    "type": "color"
-  },
-  "white-15": {
-    "value": "rgba(255, 255, 255, 0.15)",
-    "type": "color"
-  },
-  "white-30": {
-    "value": "rgba(255, 255, 255, 0.30)",
-    "type": "color"
-  },
-  "white-50": {
-    "value": "rgba(255, 255, 255, 0.50)",
-    "type": "color"
-  },
-  "white-65": {
-    "value": "rgba(255, 255, 255, 0.65)",
-    "type": "color"
-  },
-  "white-79": {
-    "value": "rgba(255, 255, 255, 0.79)",
-    "type": "color"
-  }
-}</pre>
+            <div class="hero__meta">
+                <span>Format · JSON</span>
+                <span>Schema · Greenhouse 3.0</span>
+                <span>Updated · 2026.04</span>
             </div>
         </section>
 
-        <section id="typography" class="section">
-            <h2>Typography <span class="badge">Type Scale</span></h2>
+        <!-- OVERVIEW -->
+        <section class="section" id="overview">
+            <div class="container">
+                <div class="section__marker">00 — Overview</div>
+                <h2 class="section__title">Built to be parsed.</h2>
+                <p class="section__lede">This document gives AI agents and developers structured access to the Greenhouse 3.0 design system. Every section ships as copy-ready JSON or annotated code — tokens, rules, components, and patterns — keyed to the same canonical names used in the human reference.</p>
 
-            <h3>Font Families</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('type-families')">Copy JSON</button>
-                <pre id="type-families">{
+                <ul class="overview-list">
+                    <li><strong>Design tokens</strong>Colors, typography, spacing, shadows, radii, grid</li>
+                    <li><strong>Brand strategy</strong>Creative platform, attributes, graphic language</li>
+                    <li><strong>Usage rules</strong>Color and button hierarchy, typography rules</li>
+                    <li><strong>Component snippets</strong>Production-ready code for buttons, forms, cards</li>
+                    <li><strong>Layout patterns</strong>Hero, feature grid, content/CTA sections</li>
+                    <li><strong>Accessibility</strong>WCAG 2.1 AA, contrast, keyboard, ARIA</li>
+                </ul>
+
+                <p class="overview-quote">The customer is <em>always</em> human.</p>
+            </div>
+        </section>
+
+        <!-- COLORS -->
+        <section class="section" id="colors">
+            <div class="container">
+                <div class="section__marker">01 — Colors</div>
+                <h2 class="section__title">Color tokens</h2>
+                <p class="section__lede">All color values as flat key/value JSON. Matcha is reserved for primary actions only — see usage rules.</p>
+
+                <div class="section__subhead">Primary colors</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>colors.primary.json</div>
+                        <button class="copy-button" data-target="json-colors-primary">Copy</button>
+                    </div>
+                    <pre data-json id="json-colors-primary">{
+  "coconut": { "value": "#FFFFFF", "type": "color", "description": "Primary background (light mode)" },
+  "licorice": { "value": "#11110D", "type": "color", "description": "Primary text and dark background" },
+  "matcha": { "value": "#D1F470", "type": "color", "description": "Primary CTA color (use sparingly)" },
+  "sesame": { "value": "#F5F5F2", "type": "color", "description": "Secondary background" }
+}</pre>
+                </div>
+
+                <div class="section__subhead">Secondary palette</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>colors.secondary.json</div>
+                        <button class="copy-button" data-target="json-colors-secondary">Copy</button>
+                    </div>
+                    <pre data-json id="json-colors-secondary">{
+  "cactus":    { "value": "#A1D78F", "type": "color" },
+  "pineapple": { "value": "#FEEB7E", "type": "color" },
+  "shamrock":  { "value": "#2D4C33", "type": "color" },
+  "fern":      { "value": "#203524", "type": "color" }
+}</pre>
+                </div>
+
+                <div class="section__subhead">Matcha scale</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>colors.matcha.json</div>
+                        <button class="copy-button" data-target="json-colors-matcha">Copy</button>
+                    </div>
+                    <pre data-json id="json-colors-matcha">{
+  "matcha-000": { "value": "#E6FAAB", "type": "color" },
+  "matcha-100": { "value": "#D1F470", "type": "color" },
+  "matcha-200": { "value": "#B2DA56", "type": "color" },
+  "matcha-300": { "value": "#92BF3B", "type": "color" },
+  "matcha-400": { "value": "#70A32A", "type": "color" },
+  "matcha-500": { "value": "#4E8336", "type": "color" },
+  "matcha-600": { "value": "#355E34", "type": "color" }
+}</pre>
+                </div>
+
+                <div class="section__subhead">Sesame scale</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>colors.sesame.json</div>
+                        <button class="copy-button" data-target="json-colors-sesame">Copy</button>
+                    </div>
+                    <pre data-json id="json-colors-sesame">{
+  "sesame-100": { "value": "#F5F5F2", "type": "color" },
+  "sesame-200": { "value": "#E5E5E2", "type": "color" },
+  "sesame-300": { "value": "#D5D5D2", "type": "color" },
+  "sesame-400": { "value": "#B4B4B0", "type": "color" },
+  "sesame-500": { "value": "#90918C", "type": "color" },
+  "sesame-600": { "value": "#6C6C68", "type": "color" },
+  "sesame-700": { "value": "#42433E", "type": "color" }
+}</pre>
+                </div>
+
+                <div class="section__subhead">Neutrals — light mode</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>colors.neutrals.light.json</div>
+                        <button class="copy-button" data-target="json-colors-neutrals-light">Copy</button>
+                    </div>
+                    <pre data-json id="json-colors-neutrals-light">{
+  "licorice-5":  { "value": "rgba(17, 17, 13, 0.05)", "type": "color" },
+  "licorice-11": { "value": "rgba(17, 17, 13, 0.11)", "type": "color" },
+  "licorice-18": { "value": "rgba(17, 17, 13, 0.18)", "type": "color" },
+  "licorice-32": { "value": "rgba(17, 17, 13, 0.32)", "type": "color" },
+  "licorice-47": { "value": "rgba(17, 17, 13, 0.47)", "type": "color" },
+  "licorice-79": { "value": "rgba(17, 17, 13, 0.79)", "type": "color" }
+}</pre>
+                </div>
+
+                <div class="section__subhead">Neutrals — dark mode</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>colors.neutrals.dark.json</div>
+                        <button class="copy-button" data-target="json-colors-neutrals-dark">Copy</button>
+                    </div>
+                    <pre data-json id="json-colors-neutrals-dark">{
+  "coconut-5":  { "value": "rgba(255, 255, 255, 0.05)", "type": "color" },
+  "coconut-13": { "value": "rgba(255, 255, 255, 0.13)", "type": "color" },
+  "coconut-32": { "value": "rgba(255, 255, 255, 0.32)", "type": "color" },
+  "coconut-47": { "value": "rgba(255, 255, 255, 0.47)", "type": "color" },
+  "coconut-79": { "value": "rgba(255, 255, 255, 0.79)", "type": "color" }
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section class="section" id="typography">
+            <div class="container">
+                <div class="section__marker">02 — Typography</div>
+                <h2 class="section__title">Type tokens</h2>
+                <p class="section__lede">Zendesk Sans is the primary typeface; Zendesk Mono handles supertitles, technical detail, and metadata. Sizes are unitless pixel values.</p>
+
+                <div class="section__subhead">Font families</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>typography.families.json</div>
+                        <button class="copy-button" data-target="json-type-families">Copy</button>
+                    </div>
+                    <pre data-json id="json-type-families">{
   "zendesk-sans": {
-    "value": "Zendesk Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "value": "Zendesk Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     "type": "fontFamily"
   },
   "zendesk-mono": {
-    "value": "Zendesk Mono, Menlo, Monaco, 'Courier New', monospace",
+    "value": "Zendesk Mono, ui-monospace, 'SF Mono', Menlo, monospace",
     "type": "fontFamily"
   }
 }</pre>
-            </div>
+                </div>
 
-            <h3>Type Scale</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('type-scale')">Copy JSON</button>
-                <pre id="type-scale">{
-  "h1": {
-    "fontSize": "42px",
-    "fontWeight": 500,
-    "lineHeight": "44.1px",
-    "type": "typography"
-  },
-  "h2": {
-    "fontSize": "30px",
-    "fontWeight": 500,
-    "lineHeight": "34.5px",
-    "type": "typography"
-  },
-  "h3": {
-    "fontSize": "21px",
-    "fontWeight": 500,
-    "lineHeight": "26.25px",
-    "type": "typography"
-  },
-  "h4": {
-    "fontSize": "15px",
-    "fontWeight": 600,
-    "lineHeight": "21.75px",
-    "type": "typography"
-  },
-  "paragraph-large": {
-    "fontSize": "21px",
-    "fontWeight": 400,
-    "lineHeight": "26.25px",
-    "type": "typography"
-  },
-  "paragraph": {
-    "fontSize": "15px",
-    "fontWeight": 400,
-    "lineHeight": "21.75px",
-    "type": "typography"
-  }
+                <div class="section__subhead">Type scale</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>typography.scale.json</div>
+                        <button class="copy-button" data-target="json-type-scale">Copy</button>
+                    </div>
+                    <pre data-json id="json-type-scale">{
+  "h1":              { "fontSize": "42px", "fontWeight": 500, "lineHeight": "44.1px",  "type": "typography" },
+  "h2":              { "fontSize": "30px", "fontWeight": 500, "lineHeight": "34.5px",  "type": "typography" },
+  "h3":              { "fontSize": "21px", "fontWeight": 500, "lineHeight": "26.25px", "type": "typography" },
+  "h4":              { "fontSize": "15px", "fontWeight": 600, "lineHeight": "21.75px", "type": "typography" },
+  "paragraph-large": { "fontSize": "21px", "fontWeight": 400, "lineHeight": "26.25px", "type": "typography" },
+  "paragraph":       { "fontSize": "15px", "fontWeight": 400, "lineHeight": "21.75px", "type": "typography" },
+  "supertitle":      { "fontSize": "12px", "fontWeight": 700, "lineHeight": "14.3px",  "letterSpacing": "0.75px", "type": "typography" },
+  "caption":         { "fontSize": "13px", "fontWeight": 400, "lineHeight": "18.2px",  "type": "typography" }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="spacing" class="section">
-            <h2>Spacing <span class="badge">8px Base</span></h2>
+        <!-- SPACING -->
+        <section class="section" id="spacing">
+            <div class="container">
+                <div class="section__marker">03 — Spacing</div>
+                <h2 class="section__title">Spacing tokens</h2>
+                <p class="section__lede">8px-based scale. Stick to these values everywhere — no improvising.</p>
 
-            <h3>Base Scale</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('spacing-base')">Copy JSON</button>
-                <pre id="spacing-base">{
-  "spacer-1": {
-    "value": "8px",
-    "type": "spacing"
-  },
-  "spacer-2": {
-    "value": "12px",
-    "type": "spacing"
-  },
-  "spacer-3": {
-    "value": "16px",
-    "type": "spacing"
-  },
-  "spacer-4": {
-    "value": "24px",
-    "type": "spacing"
-  },
-  "spacer-5": {
-    "value": "40px",
-    "type": "spacing"
-  },
-  "spacer-6": {
-    "value": "56px",
-    "type": "spacing"
-  },
-  "spacer-7": {
-    "value": "72px",
-    "type": "spacing"
-  },
-  "spacer-8": {
-    "value": "96px",
-    "type": "spacing"
-  }
+                <div class="section__subhead">Base scale</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>spacing.base.json</div>
+                        <button class="copy-button" data-target="json-spacing-base">Copy</button>
+                    </div>
+                    <pre data-json id="json-spacing-base">{
+  "spacer-8":   { "value": "8px",   "type": "spacing" },
+  "spacer-12":  { "value": "12px",  "type": "spacing" },
+  "spacer-16":  { "value": "16px",  "type": "spacing" },
+  "spacer-24":  { "value": "24px",  "type": "spacing" },
+  "spacer-40":  { "value": "40px",  "type": "spacing" },
+  "spacer-56":  { "value": "56px",  "type": "spacing" },
+  "spacer-72":  { "value": "72px",  "type": "spacing" },
+  "spacer-96":  { "value": "96px",  "type": "spacing" },
+  "spacer-128": { "value": "128px", "type": "spacing" }
 }</pre>
-            </div>
+                </div>
 
-            <h3>Breakpoint-Aware Variables</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('spacing-breakpoint')">Copy JSON</button>
-                <pre id="spacing-breakpoint">{
-  "text-to-content": {
-    "xs": "16px",
-    "s": "16px",
-    "m": "24px",
-    "l": "24px",
-    "xl": "24px",
-    "type": "spacing"
-  },
-  "content-to-content": {
-    "xs": "24px",
-    "s": "24px",
-    "m": "40px",
-    "l": "40px",
-    "xl": "40px",
-    "type": "spacing"
-  },
-  "button-margin": {
-    "xs": "12px",
-    "s": "12px",
-    "m": "16px",
-    "l": "16px",
-    "xl": "16px",
-    "type": "spacing"
-  },
-  "section-padding": {
-    "xs": "40px",
-    "s": "56px",
-    "m": "72px",
-    "l": "72px",
-    "xl": "96px",
-    "type": "spacing"
-  }
+                <div class="section__subhead">Breakpoint-aware spacing</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>spacing.responsive.json</div>
+                        <button class="copy-button" data-target="json-spacing-responsive">Copy</button>
+                    </div>
+                    <pre data-json id="json-spacing-responsive">{
+  "text-to-content":    { "xs": "16px", "s": "16px", "m": "24px", "l": "24px", "xl": "24px" },
+  "content-to-content": { "xs": "24px", "s": "24px", "m": "40px", "l": "40px", "xl": "40px" },
+  "button-margin":      { "xs": "12px", "s": "12px", "m": "16px", "l": "16px", "xl": "16px" },
+  "section-padding":    { "xs": "40px", "s": "56px", "m": "72px", "l": "72px", "xl": "96px" }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="breakpoints" class="section">
-            <h2>Breakpoints <span class="badge">Mobile-First</span></h2>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('breakpoints')">Copy JSON</button>
-                <pre id="breakpoints">{
-  "xs": {
-    "min": "320px",
-    "max": "480px",
-    "description": "Mobile (base styles)"
-  },
-  "s": {
-    "min": "481px",
-    "max": "767px",
-    "media": "(min-width: 481px)",
-    "description": "Mobile Large"
-  },
-  "m": {
-    "min": "768px",
-    "max": "1119px",
-    "media": "(min-width: 768px)",
-    "description": "Tablet"
-  },
-  "l": {
-    "min": "1120px",
-    "max": "1599px",
-    "media": "(min-width: 1120px)",
-    "description": "Desktop"
-  },
-  "xl": {
-    "min": "1600px",
-    "max": null,
-    "media": "(min-width: 1600px)",
-    "description": "Large Desktop"
-  }
-}</pre>
-            </div>
+        <!-- BREAKPOINTS -->
+        <section class="section" id="breakpoints">
+            <div class="container">
+                <div class="section__marker">04 — Breakpoints</div>
+                <h2 class="section__title">Breakpoints</h2>
+                <p class="section__lede">Mobile-first responsive system. Five named ranges from xs through xl.</p>
 
-            <h3>Design Principles</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('breakpoint-principles')">Copy JSON</button>
-                <pre id="breakpoint-principles">{
-  "principles": [
-    "Mobile-first approach: Start with base mobile styles, enhance for larger screens",
-    "Fluid typography: Scale text sizes smoothly across breakpoints",
-    "Flexible grids: Use relative units (%, fr) rather than fixed pixels",
-    "Touch targets: Minimum 44x44px for interactive elements on mobile",
-    "Performance: Optimize images and assets for mobile bandwidth",
-    "Content priority: Most important content visible without scrolling on mobile"
-  ]
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>breakpoints.json</div>
+                        <button class="copy-button" data-target="json-breakpoints">Copy</button>
+                    </div>
+                    <pre data-json id="json-breakpoints">{
+  "xs": { "min": "320px",  "max": "480px",  "description": "Mobile (base styles)" },
+  "s":  { "min": "481px",  "max": "767px",  "media": "(min-width: 481px)",  "description": "Mobile Large" },
+  "m":  { "min": "768px",  "max": "1119px", "media": "(min-width: 768px)",  "description": "Tablet" },
+  "l":  { "min": "1120px", "max": "1599px", "media": "(min-width: 1120px)", "description": "Desktop" },
+  "xl": { "min": "1600px", "max": null,     "media": "(min-width: 1600px)", "description": "Large Desktop" }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="shadows" class="section">
-            <h2>Shadows</h2>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('shadows')">Copy JSON</button>
-                <pre id="shadows">{
-  "shadow-sm": {
-    "value": "0 1px 3px rgba(17, 17, 13, 0.1)",
-    "type": "boxShadow"
-  },
-  "shadow-md": {
-    "value": "0 4px 8px rgba(17, 17, 13, 0.1)",
-    "type": "boxShadow"
-  },
-  "shadow-lg": {
-    "value": "0 8px 16px rgba(17, 17, 13, 0.15)",
-    "type": "boxShadow"
-  },
-  "shadow-xl": {
-    "value": "0 16px 32px rgba(17, 17, 13, 0.2)",
-    "type": "boxShadow"
-  }
+        <!-- SHADOWS -->
+        <section class="section" id="shadows">
+            <div class="container">
+                <div class="section__marker">05 — Shadows</div>
+                <h2 class="section__title">Shadow tokens</h2>
+                <p class="section__lede">Six shadow depths organized by intensity. Reserve S4 for modals and overlays.</p>
+
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>shadows.json</div>
+                        <button class="copy-button" data-target="json-shadows">Copy</button>
+                    </div>
+                    <pre data-json id="json-shadows">{
+  "ss1": { "value": "0px 2px 4px rgba(0, 0, 0, 0.08)",   "type": "boxShadow" },
+  "ss2": { "value": "0px 4px 12px rgba(0, 0, 0, 0.05)",  "type": "boxShadow" },
+  "s1":  { "value": "0px 8px 24px rgba(0, 0, 0, 0.08)",  "type": "boxShadow" },
+  "s2":  { "value": "0px 16px 28px rgba(0, 0, 0, 0.08)", "type": "boxShadow" },
+  "s3":  { "value": "0px 24px 36px rgba(0, 0, 0, 0.16)", "type": "boxShadow" },
+  "s4":  { "value": "0px 10px 50px 20px rgba(0, 0, 0, 0.30)", "type": "boxShadow" }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="radius" class="section">
-            <h2>Border Radius</h2>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('radius')">Copy JSON</button>
-                <pre id="radius">{
-  "radius-sm": {
-    "value": "4px",
-    "type": "borderRadius"
-  },
-  "radius-md": {
-    "value": "8px",
-    "type": "borderRadius"
-  },
-  "radius-lg": {
-    "value": "12px",
-    "type": "borderRadius"
-  },
-  "radius-xl": {
-    "value": "16px",
-    "type": "borderRadius"
-  },
-  "radius-full": {
-    "value": "9999px",
-    "type": "borderRadius"
-  }
+        <!-- RADIUS -->
+        <section class="section" id="radius">
+            <div class="container">
+                <div class="section__marker">06 — Border Radius</div>
+                <h2 class="section__title">Border radius</h2>
+                <p class="section__lede">Standardized corner radii for all components and surfaces.</p>
+
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>radius.json</div>
+                        <button class="copy-button" data-target="json-radius">Copy</button>
+                    </div>
+                    <pre data-json id="json-radius">{
+  "radius-sm":   { "value": "4px",    "type": "borderRadius" },
+  "radius-md":   { "value": "8px",    "type": "borderRadius" },
+  "radius-lg":   { "value": "16px",   "type": "borderRadius" },
+  "radius-xl":   { "value": "28px",   "type": "borderRadius" },
+  "radius-full": { "value": "9999px", "type": "borderRadius" }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="grid" class="section">
-            <h2>Grid System <span class="badge">12 Columns</span></h2>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('grid')">Copy JSON</button>
-                <pre id="grid">{
+        <!-- GRID -->
+        <section class="section" id="grid">
+            <div class="container">
+                <div class="section__marker">07 — Grid</div>
+                <h2 class="section__title">Grid system</h2>
+                <p class="section__lede">12-column responsive grid with breakpoint-aware gutters and margins.</p>
+
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>grid.json</div>
+                        <button class="copy-button" data-target="json-grid">Copy</button>
+                    </div>
+                    <pre data-json id="json-grid">{
   "columns": 12,
   "gutter": {
-    "xs": "16px",
-    "s": "16px",
-    "m": "24px",
-    "l": "24px",
-    "xl": "24px"
+    "xs": "16px", "s": "16px", "m": "24px", "l": "24px", "xl": "24px"
   },
   "margin": {
-    "xs": "16px",
-    "s": "24px",
-    "m": "40px",
-    "l": "80px",
-    "xl": "120px"
+    "xs": "16px", "s": "24px", "m": "40px", "l": "80px", "xl": "120px"
   },
   "maxWidth": "1440px"
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="brand-strategy" class="section">
-            <h2>Brand Strategy & Philosophy</h2>
+        <!-- BRAND STRATEGY -->
+        <section class="section" id="brand">
+            <div class="container">
+                <div class="section__marker">08 — Brand Strategy</div>
+                <h2 class="section__title">Brand strategy</h2>
+                <p class="section__lede">The creative platform, brand attributes, and graphic language principles — structured for downstream consumption.</p>
 
-            <h3>Creative Platform</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('brand-manifesto')">Copy JSON</button>
-                <pre id="brand-manifesto">{
+                <div class="section__subhead">Creative platform</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>brand.platform.json</div>
+                        <button class="copy-button" data-target="json-brand-platform">Copy</button>
+                    </div>
+                    <pre data-json id="json-brand-platform">{
   "manifesto": "The customer is always human",
-  "description": "When things go sideways, you want service you can count on. You reach out for help, and the support you receive feels just right. Zendesk is behind it all—ensuring you get exactly what you need when you need it. We're committed to every interaction ending in resolution, no matter what comes your way. So, the brands you're loyal to can show up for you, how you want them to. Because you are the customer, and we know the customer is always human."
+  "description": "When things go sideways, you want service you can count on. You reach out for help, and the support you receive feels just right. Zendesk is behind it all — ensuring you get exactly what you need when you need it. We're committed to every interaction ending in resolution, no matter what comes your way."
 }</pre>
-            </div>
+                </div>
 
-            <h3>Brand Attributes</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('brand-attributes')">Copy JSON</button>
-                <pre id="brand-attributes">{
+                <div class="section__subhead">Brand attributes</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>brand.attributes.json</div>
+                        <button class="copy-button" data-target="json-brand-attributes">Copy</button>
+                    </div>
+                    <pre data-json id="json-brand-attributes">{
   "approachable": {
     "name": "Approachable",
-    "description": "Great technology should feel intuitive. That's why we present our brand in a way that's welcoming, clear, and easy to understand—no jargon, no barriers, just solutions designed for everyone."
+    "description": "Great technology should feel intuitive. We present our brand in a way that's welcoming, clear, and easy to understand — no jargon, no barriers."
   },
   "modern": {
     "name": "Modern",
-    "description": "Innovation is in our DNA. Through bold, forward-thinking expressions of our brand, we communicate that we're not just keeping up with the future—we're building it."
+    "description": "Innovation is in our DNA. Through bold, forward-thinking expressions, we communicate that we're not just keeping up with the future — we're building it."
   },
   "trusted": {
     "name": "Trusted",
-    "description": "We're advocates for consistency and quality. Every touchpoint reinforces reliability, from the precision of our design to the confidence we foster in the services we provide."
+    "description": "We're advocates for consistency and quality. Every touchpoint reinforces reliability."
   },
   "connected": {
     "name": "Connected",
-    "description": "To lead the way, we stay relevant. Our brand speaks to the needs of our customers and reflects the culture of the moment, ensuring we're not just part of the conversation but shape it."
+    "description": "Our brand speaks to the needs of our customers and reflects the culture of the moment."
   },
   "fresh": {
     "name": "Fresh",
-    "description": "Our visual and verbal identity mirrors the elegance of our solutions. With clean, intuitive design, we show that embedding AI into customer and employee experiences can be as seamless as it is transformative."
+    "description": "Our visual and verbal identity mirrors the elegance of our solutions."
   }
 }</pre>
-            </div>
+                </div>
 
-            <h3>Graphic Language Principles</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('graphic-language')">Copy JSON</button>
-                <pre id="graphic-language">{
-  "overview": "Our design system guides customers from challenge to resolution through clean, intentional choices. Simple forms create clarity, while gradients and shapes signal the path forward. Every visual element reinforces our core purpose: transforming support moments into exceptional experiences.",
+                <div class="section__subhead">Graphic language</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>brand.graphic-language.json</div>
+                        <button class="copy-button" data-target="json-graphic-language">Copy</button>
+                    </div>
+                    <pre data-json id="json-graphic-language">{
+  "overview": "Our design system guides customers from challenge to resolution through clean, intentional choices.",
   "principles": {
-    "logo": "The Zendesk logo animation opens up to show the movement toward resolution. It's a foundational visual device to showcase how it feels to use Zendesk.",
-    "gradients": "Soft edges create depth with sophistication, balancing visual emphasis with elegant transitions.",
-    "symbols": "Simple, universal symbols communicate clearly and directly, distilling complex ideas into the essentials.",
-    "roundedCorners": "Rounded corners add a sense of approachability and a contemporary feel.",
-    "gradientBackgrounds": "Gradient backgrounds help imply a movement toward resolution while providing contrast and a visual accent."
+    "logo":               "The Zendesk logo animation opens up to show the movement toward resolution.",
+    "gradients":          "Soft edges create depth with sophistication.",
+    "symbols":            "Simple, universal symbols distill complex ideas into the essentials.",
+    "roundedCorners":     "Rounded corners add a sense of approachability.",
+    "gradientBackgrounds":"Gradient backgrounds imply movement toward resolution."
   }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="usage-guidelines" class="section">
-            <h2>Usage Guidelines <span class="badge">Critical Rules</span></h2>
+        <!-- USAGE RULES -->
+        <section class="section" id="usage">
+            <div class="container">
+                <div class="section__marker">09 — Usage Rules</div>
+                <h2 class="section__title">Usage rules</h2>
+                <p class="section__lede">Critical rules for color, button hierarchy, and typography. These are the rules to enforce in linters and review.</p>
 
-            <h3>Color Hierarchy</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('color-hierarchy')">Copy JSON</button>
-                <pre id="color-hierarchy">{
+                <div class="section__subhead">Color hierarchy</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>usage.colors.json</div>
+                        <button class="copy-button" data-target="json-usage-colors">Copy</button>
+                    </div>
+                    <pre data-json id="json-usage-colors">{
   "matcha": {
     "usage": "Primary CTA only",
     "limit": "1–2 per page",
-    "rule": "RESERVED for primary call-to-action buttons only. Never use for backgrounds, text, or decorative elements.",
+    "rule": "RESERVED for primary call-to-action buttons. Never use for backgrounds, body text, or decorative elements.",
     "examples": ["Start your free trial", "Get started", "Sign up now"]
   },
   "backgrounds": {
-    "primary": "Coconut (#FFFFFF) for cards and light surfaces",
+    "primary":   "Coconut (#FFFFFF) for cards and light surfaces",
     "secondary": "Sesame (#F5F5F2) for subtle backgrounds",
-    "dark": "Licorice (#11110D) for dark mode and hero sections"
+    "dark":      "Licorice (#11110D) for dark mode and hero sections"
   },
   "text": {
-    "primary": "Licorice (#11110D) on light backgrounds",
-    "secondary": "Neutrals (licorice-79, licorice-65) for less emphasis",
-    "onDark": "Coconut (#FFFFFF) on dark backgrounds"
-  },
-  "borders": {
-    "default": "Sesame-200 (#E5E5E2) for most borders",
-    "subtle": "Neutrals (licorice-15) for very subtle divisions"
+    "primary":   "Licorice (#11110D) on light backgrounds",
+    "secondary": "Neutrals (licorice-79, licorice-47) for less emphasis",
+    "onDark":    "Coconut (#FFFFFF) on dark backgrounds"
   }
 }</pre>
-            </div>
+                </div>
 
-            <h3>Button Hierarchy</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('button-hierarchy')">Copy JSON</button>
-                <pre id="button-hierarchy">{
+                <div class="section__subhead">Button hierarchy</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>usage.buttons.json</div>
+                        <button class="copy-button" data-target="json-usage-buttons">Copy</button>
+                    </div>
+                    <pre data-json id="json-usage-buttons">{
   "primary": {
     "style": "Matcha background, Licorice text",
     "usage": "Main CTA only",
     "limit": "1–2 per page",
-    "rule": "Use for the primary action you want users to take. If you have multiple actions, only the most important should be primary.",
     "states": {
-      "default": "background: #D1F470, color: #11110D",
-      "hover": "opacity: 0.9",
-      "active": "opacity: 0.8",
+      "default":  "background: #D1F470, color: #11110D",
+      "hover":    "background: #B2DA56",
+      "active":   "background: #92BF3B",
       "disabled": "opacity: 0.5, cursor: not-allowed"
     }
   },
   "secondary": {
-    "style": "White background, Licorice border and text",
-    "usage": "Secondary CTAs",
-    "frequency": "Can be used more liberally",
-    "rule": "Use for secondary actions like 'Learn more', 'View demo', or 'Contact us'",
+    "style": "Transparent background, Licorice border and text",
+    "usage": "Secondary CTAs like 'Learn more', 'View demo'",
     "states": {
-      "default": "background: #FFFFFF, border: 2px solid #11110D, color: #11110D",
-      "hover": "background: rgba(17, 17, 13, 0.05)",
-      "active": "background: rgba(17, 17, 13, 0.11)",
+      "default":  "background: transparent, border: 1.5px solid #11110D",
+      "hover":    "background: #11110D, color: #FFFFFF",
       "disabled": "opacity: 0.5, cursor: not-allowed"
     }
-  },
-  "tertiary": {
-    "style": "Text link style",
-    "usage": "Tertiary actions with least emphasis",
-    "rule": "Use for less important actions or when you need more hierarchy"
   }
 }</pre>
-            </div>
+                </div>
 
-            <h3>Typography Usage</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('typography-usage')">Copy JSON</button>
-                <pre id="typography-usage">{
-  "h1": {
-    "usage": "The biggest idea of the page - main page title only",
-    "frequency": "1 per page",
-    "examples": ["Product landing page hero", "Main page heading"],
-    "notes": "Built-in bottom margin of 24px"
-  },
-  "h2": {
-    "usage": "Major section headings",
-    "frequency": "Multiple per page for main sections",
-    "examples": ["Features", "Pricing", "Testimonials"]
-  },
-  "h3": {
-    "usage": "Subsection headings within major sections",
-    "frequency": "As needed for content hierarchy",
-    "examples": ["Feature categories", "Subsections within features"]
-  },
-  "h4": {
-    "usage": "Small headings for content groupings",
-    "frequency": "Smaller buckets of content",
-    "examples": ["Card titles", "Small content sections"]
-  },
-  "paragraphLarge": {
-    "usage": "Lead paragraphs or important body text",
-    "examples": ["Hero subtitle", "Section introductions"],
-    "notes": "Not a heading, but still big"
-  },
-  "paragraph": {
-    "usage": "Standard body copy",
-    "examples": ["Main content", "Card descriptions", "Form labels"]
-  }
+                <div class="section__subhead">Typography usage</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>usage.typography.json</div>
+                        <button class="copy-button" data-target="json-usage-typography">Copy</button>
+                    </div>
+                    <pre data-json id="json-usage-typography">{
+  "h1": { "usage": "The biggest idea of the page", "frequency": "1 per page" },
+  "h2": { "usage": "Major section headings",       "frequency": "Multiple per page" },
+  "h3": { "usage": "Subsection headings",          "frequency": "As needed" },
+  "h4": { "usage": "Small headings, card titles",  "frequency": "As needed" },
+  "paragraphLarge": { "usage": "Lead paragraphs, hero subtitles" },
+  "paragraph":      { "usage": "Standard body copy" }
 }</pre>
+                </div>
             </div>
         </section>
 
-        <section id="component-examples" class="section">
-            <h2>Component Examples <span class="badge">Code Snippets</span></h2>
+        <!-- COMPONENT EXAMPLES -->
+        <section class="section" id="components">
+            <div class="container">
+                <div class="section__marker">10 — Components</div>
+                <h2 class="section__title">Component snippets</h2>
+                <p class="section__lede">Production-ready code examples. These compile to the same components shown on the human reference page.</p>
 
-            <h3>Primary Button</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('component-primary-button')">Copy Code</button>
-                <pre id="component-primary-button">&lt;button style="
-  background-color: #D1F470;
-  color: #11110D;
-  padding: 16px 40px;
-  border-radius: 16px;
-  border: none;
-  font-family: 'Zendesk Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s;
-"&gt;
+                <div class="section__subhead">Primary button</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>button.primary.html</div>
+                        <button class="copy-button" data-target="snippet-btn-primary">Copy</button>
+                    </div>
+                    <pre data-html id="snippet-btn-primary">&lt;button class="btn btn--primary"&gt;
   Start your free trial
 &lt;/button&gt;
 
 &lt;style&gt;
-button:hover {
-  opacity: 0.9;
-}
-button:active {
-  opacity: 0.8;
-}
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-&lt;/style&gt;</pre>
-            </div>
-
-            <h3>Secondary Button</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('component-secondary-button')">Copy Code</button>
-                <pre id="component-secondary-button">&lt;button style="
-  background-color: #FFFFFF;
+.btn--primary {
+  background: #D1F470;
   color: #11110D;
-  padding: 16px 40px;
-  border-radius: 16px;
-  border: 2px solid #11110D;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1.5px solid #D1F470;
   font-family: 'Zendesk Sans', sans-serif;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
-"&gt;
+  transition: background 0.2s ease;
+}
+.btn--primary:hover  { background: #B2DA56; border-color: #B2DA56; }
+.btn--primary:active { background: #92BF3B; border-color: #92BF3B; }
+&lt;/style&gt;</pre>
+                </div>
+
+                <div class="section__subhead">Secondary button</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>button.secondary.html</div>
+                        <button class="copy-button" data-target="snippet-btn-secondary">Copy</button>
+                    </div>
+                    <pre data-html id="snippet-btn-secondary">&lt;button class="btn btn--secondary"&gt;
   Learn more
 &lt;/button&gt;
 
 &lt;style&gt;
-button:hover {
-  background-color: rgba(17, 17, 13, 0.05);
+.btn--secondary {
+  background: transparent;
+  color: #11110D;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1.5px solid #11110D;
+  font-family: 'Zendesk Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-button:active {
-  background-color: rgba(17, 17, 13, 0.11);
+.btn--secondary:hover {
+  background: #11110D;
+  color: #FFFFFF;
 }
 &lt;/style&gt;</pre>
-            </div>
+                </div>
 
-            <h3>Form Input</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('component-form-input')">Copy Code</button>
-                <pre id="component-form-input">&lt;div style="margin-bottom: 24px;"&gt;
-  &lt;label style="
-    display: block;
-    font-family: 'Zendesk Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: #11110D;
-    margin-bottom: 8px;
-  "&gt;
-    Email Address
-  &lt;/label&gt;
-  &lt;input
-    type="email"
-    placeholder="you@company.com"
-    style="
-      width: 100%;
-      padding: 12px 16px;
-      font-family: 'Zendesk Sans', sans-serif;
-      font-size: 15px;
-      color: #11110D;
-      background-color: #FFFFFF;
-      border: 2px solid #E5E5E2;
-      border-radius: 8px;
-      transition: border-color 0.2s;
-    "
-  /&gt;
+                <div class="section__subhead">Form input</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>form.input.html</div>
+                        <button class="copy-button" data-target="snippet-form-input">Copy</button>
+                    </div>
+                    <pre data-html id="snippet-form-input">&lt;div class="form-field"&gt;
+  &lt;label class="form-label" for="email"&gt;Email address&lt;/label&gt;
+  &lt;input class="form-input" type="email" id="email" placeholder="you@company.com" /&gt;
 &lt;/div&gt;
 
 &lt;style&gt;
-input:focus {
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 13px; font-weight: 500; color: #11110D; }
+.form-input {
+  font-family: 'Zendesk Sans', sans-serif;
+  font-size: 15px;
+  padding: 12px 16px;
+  border: 1.5px solid rgba(17, 17, 13, 0.18);
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #11110D;
+  transition: border-color 0.2s ease;
+}
+.form-input:focus {
   outline: none;
   border-color: #11110D;
 }
-input::placeholder {
-  color: rgba(17, 17, 13, 0.5);
-}
 &lt;/style&gt;</pre>
-            </div>
+                </div>
 
-            <h3>Card Component</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('component-card')">Copy Code</button>
-                <pre id="component-card">&lt;div style="
-  background-color: #FFFFFF;
-  border: 2px solid #E5E5E2;
-  border-radius: 16px;
-  padding: 40px;
-  transition: transform 0.2s, box-shadow 0.2s;
-"&gt;
-  &lt;div style="
-    width: 48px;
-    height: 48px;
-    background-color: #D1F470;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    margin-bottom: 24px;
-  "&gt;
-    🎨
-  &lt;/div&gt;
-  &lt;h3 style="
-    font-family: 'Zendesk Sans', sans-serif;
-    font-size: 21px;
-    font-weight: 500;
-    color: #11110D;
-    margin-bottom: 12px;
-  "&gt;
-    Card Title
-  &lt;/h3&gt;
-  &lt;p style="
-    font-family: 'Zendesk Sans', sans-serif;
-    font-size: 15px;
-    color: rgba(17, 17, 13, 0.79);
-    line-height: 1.45;
-    margin: 0;
-  "&gt;
-    Card description text goes here. Keep it concise and focused on the main message.
-  &lt;/p&gt;
+                <div class="section__subhead">Card</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>card.html</div>
+                        <button class="copy-button" data-target="snippet-card">Copy</button>
+                    </div>
+                    <pre data-html id="snippet-card">&lt;div class="card"&gt;
+  &lt;div class="card__icon"&gt;&lt;/div&gt;
+  &lt;h3 class="card__title"&gt;Design tokens&lt;/h3&gt;
+  &lt;p class="card__body"&gt;Consistent colors, spacing, and typography variables.&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;style&gt;
+.card {
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 13, 0.11);
+  border-radius: 16px;
+  padding: 40px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(17, 17, 13, 0.15);
+  border-color: rgba(17, 17, 13, 0.32);
+  transform: translateY(-2px);
 }
+.card__icon {
+  width: 48px;
+  height: 48px;
+  background: #D1F470;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+.card__title { font-size: 19px; font-weight: 500; margin-bottom: 8px; }
+.card__body  { font-size: 14px; color: rgba(17, 17, 13, 0.79); line-height: 1.55; }
 &lt;/style&gt;</pre>
+                </div>
             </div>
         </section>
 
-        <section id="layout-patterns" class="section">
-            <h2>Layout Patterns <span class="badge">Responsive</span></h2>
+        <!-- LAYOUT PATTERNS -->
+        <section class="section" id="patterns">
+            <div class="container">
+                <div class="section__marker">11 — Layout Patterns</div>
+                <h2 class="section__title">Layout patterns</h2>
+                <p class="section__lede">Composable layout templates for common page sections, all using the design tokens.</p>
 
-            <h3>Hero Section</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('pattern-hero')">Copy Code</button>
-                <pre id="pattern-hero">&lt;section style="
-  background-color: #11110D;
-  color: #FFFFFF;
-  padding: 96px 56px;
-  text-align: center;
-  border-radius: 24px;
-"&gt;
-  &lt;p style="
-    font-family: 'Zendesk Mono', monospace;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.48px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  "&gt;
-    ZENDESK BRAND SYSTEM
-  &lt;/p&gt;
-  &lt;h1 style="
-    font-family: 'Zendesk Sans', sans-serif;
-    font-size: 96px;
-    font-weight: 400;
-    line-height: 1;
-    margin-bottom: 32px;
-  "&gt;
-    Brand style guide
-  &lt;/h1&gt;
-  &lt;p style="
-    font-family: 'Zendesk Sans', sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.5;
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  "&gt;
-    Zendesk's AI friendly digital design and development library
-  &lt;/p&gt;
-  &lt;button style="
-    background-color: #D1F470;
-    color: #11110D;
-    padding: 16px 40px;
-    border-radius: 16px;
-    border: none;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-  "&gt;
-    Get started
-  &lt;/button&gt;
-&lt;/section&gt;
-
-&lt;!-- Responsive --&gt;
-&lt;style&gt;
-@media (max-width: 768px) {
-  section {
-    padding: 56px 24px;
-  }
-  h1 {
-    font-size: 48px !important;
-  }
-}
-&lt;/style&gt;</pre>
-            </div>
-
-            <h3>Feature Grid (3 Columns)</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('pattern-feature-grid')">Copy Code</button>
-                <pre id="pattern-feature-grid">&lt;section style="padding: 96px 56px;"&gt;
-  &lt;h2 style="
-    font-family: 'Zendesk Sans', sans-serif;
-    font-size: 42px;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 72px;
-  "&gt;
-    Features
-  &lt;/h2&gt;
-  &lt;div style="
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  "&gt;
-    &lt;!-- Card 1 --&gt;
-    &lt;div style="
-      background: #FFFFFF;
-      border: 2px solid #E5E5E2;
-      border-radius: 16px;
-      padding: 40px;
-    "&gt;
-      &lt;div style="
-        width: 48px;
-        height: 48px;
-        background: #D1F470;
-        border-radius: 12px;
-        margin-bottom: 24px;
-      "&gt;&lt;/div&gt;
-      &lt;h3 style="font-size: 21px; margin-bottom: 12px;"&gt;Feature 1&lt;/h3&gt;
-      &lt;p style="font-size: 15px; color: rgba(17,17,13,0.79);"&gt;Description&lt;/p&gt;
+                <div class="section__subhead">Hero — split layout</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>pattern.hero.html</div>
+                        <button class="copy-button" data-target="snippet-hero">Copy</button>
+                    </div>
+                    <pre data-html id="snippet-hero">&lt;section class="hero"&gt;
+  &lt;div class="hero__inner"&gt;
+    &lt;div&gt;
+      &lt;p class="hero__supertitle"&gt;ZENDESK BRAND SYSTEM&lt;/p&gt;
+      &lt;h1 class="hero__title"&gt;Brand style guide&lt;/h1&gt;
+      &lt;p class="hero__subtitle"&gt;
+        Zendesk's AI-friendly digital design library.
+      &lt;/p&gt;
+      &lt;button class="btn btn--primary"&gt;Get started&lt;/button&gt;
     &lt;/div&gt;
-    &lt;!-- Repeat for Card 2 and 3 --&gt;
+    &lt;div class="hero__art"&gt;&lt;!-- visual --&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/section&gt;
 
-&lt;!-- Responsive --&gt;
 &lt;style&gt;
-@media (max-width: 1120px) {
-  div[style*="grid-template-columns"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+.hero {
+  background: #F5F5F2;
+  padding: 96px 0 128px;
+}
+.hero__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 72px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.hero__title {
+  font-size: clamp(64px, 9vw, 120px);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
 }
 @media (max-width: 768px) {
-  div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
+  .hero__inner { grid-template-columns: 1fr; padding: 0 24px; }
 }
 &lt;/style&gt;</pre>
-            </div>
+                </div>
 
-            <h3>Content Section with CTA</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('pattern-content-cta')">Copy Code</button>
-                <pre id="pattern-content-cta">&lt;section style="
-  background-color: #F5F5F2;
-  padding: 96px 56px;
-  border-radius: 24px;
-"&gt;
-  &lt;div style="max-width: 800px; margin: 0 auto; text-align: center;"&gt;
-    &lt;h2 style="
-      font-family: 'Zendesk Sans', sans-serif;
-      font-size: 42px;
-      font-weight: 500;
-      margin-bottom: 24px;
-      color: #11110D;
-    "&gt;
-      Ready to get started?
-    &lt;/h2&gt;
-    &lt;p style="
-      font-family: 'Zendesk Sans', sans-serif;
-      font-size: 21px;
-      line-height: 1.45;
-      color: rgba(17,17,13,0.79);
-      margin-bottom: 40px;
-    "&gt;
-      Join thousands of companies using Zendesk to deliver exceptional customer experiences.
-    &lt;/p&gt;
-    &lt;div style="display: flex; gap: 16px; justify-content: center;"&gt;
-      &lt;button style="
-        background: #D1F470;
-        color: #11110D;
-        padding: 16px 40px;
-        border-radius: 16px;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
-      "&gt;
-        Start free trial
-      &lt;/button&gt;
-      &lt;button style="
-        background: #FFFFFF;
-        color: #11110D;
-        padding: 16px 40px;
-        border-radius: 16px;
-        border: 2px solid #11110D;
-        font-weight: 600;
-        cursor: pointer;
-      "&gt;
-        Contact sales
-      &lt;/button&gt;
-    &lt;/div&gt;
+                <div class="section__subhead">Feature grid — 3 columns</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>pattern.feature-grid.html</div>
+                        <button class="copy-button" data-target="snippet-grid">Copy</button>
+                    </div>
+                    <pre data-html id="snippet-grid">&lt;section class="features"&gt;
+  &lt;h2&gt;Features&lt;/h2&gt;
+  &lt;div class="features__grid"&gt;
+    &lt;div class="card"&gt;...&lt;/div&gt;
+    &lt;div class="card"&gt;...&lt;/div&gt;
+    &lt;div class="card"&gt;...&lt;/div&gt;
   &lt;/div&gt;
-&lt;/section&gt;</pre>
+&lt;/section&gt;
+
+&lt;style&gt;
+.features { padding: 96px 56px; max-width: 1080px; margin: 0 auto; }
+.features h2 {
+  font-family: 'Zendesk Sans', sans-serif;
+  font-size: 56px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 72px;
+}
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 1024px) { .features__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px)  { .features__grid { grid-template-columns: 1fr; } }
+&lt;/style&gt;</pre>
+                </div>
             </div>
         </section>
 
-        <section id="accessibility" class="section">
-            <h2>Accessibility Requirements <span class="badge">WCAG 2.1 AA</span></h2>
+        <!-- ACCESSIBILITY -->
+        <section class="section" id="a11y">
+            <div class="container">
+                <div class="section__marker">12 — Accessibility</div>
+                <h2 class="section__title">Accessibility</h2>
+                <p class="section__lede">WCAG 2.1 AA compliance is a non-negotiable baseline. These rules apply to every component built on the system.</p>
 
-            <h3>Color Contrast</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('accessibility-contrast')">Copy JSON</button>
-                <pre id="accessibility-contrast">{
+                <div class="section__subhead">Color contrast requirements</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>a11y.contrast.json</div>
+                        <button class="copy-button" data-target="json-a11y-contrast">Copy</button>
+                    </div>
+                    <pre data-json id="json-a11y-contrast">{
   "standard": "WCAG 2.1 Level AA",
   "requirements": {
-    "normalText": {
-      "minimum": "4.5:1",
-      "description": "For text under 18px or 14px bold"
-    },
-    "largeText": {
-      "minimum": "3:1",
-      "description": "For text 18px+ or 14px+ bold"
-    },
-    "uiComponents": {
-      "minimum": "3:1",
-      "description": "For interactive elements and graphics"
-    }
+    "normalText":        { "minimum": "4.5:1", "description": "Text under 18px or 14px bold" },
+    "largeText":         { "minimum": "3:1",   "description": "Text 18px+ or 14px+ bold" },
+    "uiComponents":      { "minimum": "3:1",   "description": "Borders, icons, focus indicators" }
   },
-  "approvedCombinations": [
-    {
-      "text": "#11110D (Licorice)",
-      "background": "#FFFFFF (Coconut)",
-      "ratio": "19.8:1",
-      "passes": "AAA"
-    },
-    {
-      "text": "#11110D (Licorice)",
-      "background": "#F5F5F2 (Sesame)",
-      "ratio": "18.1:1",
-      "passes": "AAA"
-    },
-    {
-      "text": "#FFFFFF (Coconut)",
-      "background": "#11110D (Licorice)",
-      "ratio": "19.8:1",
-      "passes": "AAA"
-    },
-    {
-      "text": "#11110D (Licorice)",
-      "background": "#D1F470 (Matcha)",
-      "ratio": "12.3:1",
-      "passes": "AAA"
-    }
+  "validatedPairs": {
+    "licorice-on-coconut": { "ratio": "19.4:1", "passes": ["AA", "AAA"] },
+    "coconut-on-licorice": { "ratio": "19.4:1", "passes": ["AA", "AAA"] },
+    "licorice-on-matcha":  { "ratio": "13.8:1", "passes": ["AA", "AAA"] }
+  }
+}</pre>
+                </div>
+
+                <div class="section__subhead">Keyboard navigation</div>
+                <div class="code-block">
+                    <div class="code-block__head">
+                        <div class="code-block__name"><span class="code-block__dots"><span></span><span></span><span></span></span>a11y.keyboard.json</div>
+                        <button class="copy-button" data-target="json-a11y-keyboard">Copy</button>
+                    </div>
+                    <pre data-json id="json-a11y-keyboard">{
+  "rules": [
+    "All interactive elements must be reachable via Tab",
+    "Focus indicators must be visible (matcha 3px outline, 2px offset)",
+    "Logical tab order matches visual order",
+    "Skip links provided for main content",
+    "Modals trap focus and restore on close",
+    "Esc closes modals and overlays"
   ]
 }</pre>
-            </div>
-
-            <h3>Keyboard Navigation</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('accessibility-keyboard')">Copy JSON</button>
-                <pre id="accessibility-keyboard">{
-  "requirements": {
-    "allInteractive": "All interactive elements must be keyboard accessible",
-    "tabOrder": "Tab order must follow logical reading order",
-    "focusVisible": "Focus states must be clearly visible",
-    "skipLinks": "Provide skip navigation links for complex pages",
-    "noKeyboardTrap": "Users must not be trapped in any element"
-  },
-  "focusStyles": {
-    "outline": "2px solid #D1F470",
-    "outlineOffset": "2px",
-    "borderRadius": "Inherit from element"
-  },
-  "implementation": "&lt;button style=\"outline: none;\" onFocus=\"this.style.outline = '2px solid #D1F470'; this.style.outlineOffset = '2px'\"&gt;Click me&lt;/button&gt;"
-}</pre>
-            </div>
-
-            <h3>ARIA Labels & Semantic HTML</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('accessibility-aria')">Copy Code</button>
-                <pre id="accessibility-aria">&lt;!-- Semantic HTML Structure --&gt;
-&lt;header role="banner"&gt;
-  &lt;nav aria-label="Main navigation"&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href="#features"&gt;Features&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href="#pricing"&gt;Pricing&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/nav&gt;
-&lt;/header&gt;
-
-&lt;main role="main"&gt;
-  &lt;section aria-labelledby="features-heading"&gt;
-    &lt;h2 id="features-heading"&gt;Features&lt;/h2&gt;
-    &lt;!-- Content --&gt;
-  &lt;/section&gt;
-&lt;/main&gt;
-
-&lt;!-- Interactive Elements with ARIA --&gt;
-&lt;button
-  aria-label="Close dialog"
-  aria-expanded="false"
-  aria-controls="dialog-1"
-&gt;
-  ×
-&lt;/button&gt;
-
-&lt;!-- Form Labels --&gt;
-&lt;label for="email"&gt;Email Address&lt;/label&gt;
-&lt;input
-  type="email"
-  id="email"
-  aria-required="true"
-  aria-invalid="false"
-  aria-describedby="email-error"
-/&gt;
-&lt;span id="email-error" role="alert"&gt;&lt;/span&gt;
-
-&lt;!-- Loading States --&gt;
-&lt;button aria-busy="true" aria-live="polite"&gt;
-  Loading...
-&lt;/button&gt;</pre>
-            </div>
-
-            <h3>Touch Targets (Mobile)</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('accessibility-touch')">Copy JSON</button>
-                <pre id="accessibility-touch">{
-  "minimumSize": {
-    "width": "44px",
-    "height": "44px",
-    "reason": "WCAG 2.5.5 Target Size (Level AAA)"
-  },
-  "spacing": {
-    "minimum": "8px",
-    "description": "Minimum spacing between adjacent touch targets"
-  },
-  "implementation": {
-    "buttons": "Ensure buttons are at least 44x44px with adequate padding",
-    "links": "Increase clickable area with padding, even if text is smaller",
-    "icons": "Icon buttons should meet 44x44px minimum"
-  },
-  "example": "&lt;button style=\"min-width: 44px; min-height: 44px; padding: 12px 24px;\"&gt;Click&lt;/button&gt;"
-}</pre>
-            </div>
-
-            <h3>Screen Reader Optimization</h3>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('accessibility-screenreader')">Copy JSON</button>
-                <pre id="accessibility-screenreader">{
-  "guidelines": {
-    "headings": "Use proper heading hierarchy (h1 → h2 → h3) without skipping levels",
-    "landmarks": "Use semantic HTML5 elements (header, nav, main, aside, footer)",
-    "altText": "Provide descriptive alt text for all images",
-    "hiddenContent": "Use aria-hidden='true' for decorative elements",
-    "liveRegions": "Use aria-live for dynamic content updates"
-  },
-  "examples": {
-    "decorativeImage": "&lt;img src=\"decoration.svg\" alt=\"\" aria-hidden=\"true\" /&gt;",
-    "meaningfulImage": "&lt;img src=\"dashboard.png\" alt=\"Dashboard showing customer satisfaction metrics\" /&gt;",
-    "liveUpdate": "&lt;div aria-live=\"polite\" aria-atomic=\"true\"&gt;Form submitted successfully&lt;/div&gt;",
-    "skipLink": "&lt;a href=\"#main-content\" class=\"skip-link\"&gt;Skip to main content&lt;/a&gt;"
-  }
-}</pre>
+                </div>
             </div>
         </section>
 
-        <section id="full-json" class="section">
-            <h2>Full JSON Structure</h2>
-            <p>Complete design token structure. Copy this for full programmatic access to the Greenhouse 3.0 design system.</p>
-            <div class="code-block">
-                <button class="copy-button" onclick="copyToClipboard('full-tokens')">Copy Full JSON</button>
-                <pre id="full-tokens">{
-  "name": "Greenhouse 3.0",
-  "version": "3.0.0",
-  "colors": {
-    "primary": {
-      "coconut": {"value": "#FFFFFF", "type": "color", "description": "Primary background (light mode)"},
-      "licorice": {"value": "#11110D", "type": "color", "description": "Primary text and dark background"},
-      "matcha": {"value": "#D1F470", "type": "color", "description": "Primary CTA color (use sparingly)"},
-      "sesame": {"value": "#F5F5F2", "type": "color", "description": "Secondary background"}
-    },
-    "secondary": {
-      "cactus": {"value": "#7DAD19", "type": "color"},
-      "pineapple": {"value": "#FFD424", "type": "color"},
-      "shamrock": {"value": "#53A318", "type": "color"},
-      "fern": {"value": "#203524", "type": "color"},
-      "coal": {"value": "#0E0E0B", "type": "color"}
-    },
-    "extended": {
-      "matcha": {
-        "000": {"value": "#F8FEDB", "type": "color"},
-        "100": {"value": "#F0FCBC", "type": "color"},
-        "200": {"value": "#E5FA91", "type": "color"},
-        "300": {"value": "#D1F470", "type": "color"},
-        "400": {"value": "#B4DC4E", "type": "color"},
-        "500": {"value": "#9CBF3F", "type": "color"},
-        "600": {"value": "#7DA031", "type": "color"}
-      },
-      "sesame": {
-        "100": {"value": "#FCFCFB", "type": "color"},
-        "200": {"value": "#E5E5E2", "type": "color"},
-        "300": {"value": "#D4D4D1", "type": "color"},
-        "400": {"value": "#C0C0BC", "type": "color"},
-        "500": {"value": "#A8A8A3", "type": "color"},
-        "600": {"value": "#8F8F8A", "type": "color"},
-        "700": {"value": "#757571", "type": "color"}
-      }
-    },
-    "neutrals": {
-      "light": {
-        "licorice-5": {"value": "rgba(17, 17, 13, 0.05)", "type": "color"},
-        "licorice-15": {"value": "rgba(17, 17, 13, 0.15)", "type": "color"},
-        "licorice-30": {"value": "rgba(17, 17, 13, 0.30)", "type": "color"},
-        "licorice-50": {"value": "rgba(17, 17, 13, 0.50)", "type": "color"},
-        "licorice-65": {"value": "rgba(17, 17, 13, 0.65)", "type": "color"},
-        "licorice-79": {"value": "rgba(17, 17, 13, 0.79)", "type": "color"}
-      },
-      "dark": {
-        "white-5": {"value": "rgba(255, 255, 255, 0.05)", "type": "color"},
-        "white-15": {"value": "rgba(255, 255, 255, 0.15)", "type": "color"},
-        "white-30": {"value": "rgba(255, 255, 255, 0.30)", "type": "color"},
-        "white-50": {"value": "rgba(255, 255, 255, 0.50)", "type": "color"},
-        "white-65": {"value": "rgba(255, 255, 255, 0.65)", "type": "color"},
-        "white-79": {"value": "rgba(255, 255, 255, 0.79)", "type": "color"}
-      }
-    }
-  },
-  "typography": {
-    "fontFamilies": {
-      "zendesk-sans": {"value": "Zendesk Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", "type": "fontFamily"},
-      "zendesk-mono": {"value": "Zendesk Mono, Menlo, Monaco, 'Courier New', monospace", "type": "fontFamily"}
-    },
-    "h1": {"fontSize": "42px", "fontWeight": 500, "lineHeight": "44.1px", "type": "typography"},
-    "h2": {"fontSize": "30px", "fontWeight": 500, "lineHeight": "34.5px", "type": "typography"},
-    "h3": {"fontSize": "21px", "fontWeight": 500, "lineHeight": "26.25px", "type": "typography"},
-    "h4": {"fontSize": "15px", "fontWeight": 600, "lineHeight": "21.75px", "type": "typography"},
-    "paragraph-large": {"fontSize": "21px", "fontWeight": 400, "lineHeight": "26.25px", "type": "typography"},
-    "paragraph": {"fontSize": "15px", "fontWeight": 400, "lineHeight": "21.75px", "type": "typography"}
-  },
-  "spacing": {
-    "base": {
-      "spacer-1": {"value": "8px", "type": "spacing"},
-      "spacer-2": {"value": "12px", "type": "spacing"},
-      "spacer-3": {"value": "16px", "type": "spacing"},
-      "spacer-4": {"value": "24px", "type": "spacing"},
-      "spacer-5": {"value": "40px", "type": "spacing"},
-      "spacer-6": {"value": "56px", "type": "spacing"},
-      "spacer-7": {"value": "72px", "type": "spacing"},
-      "spacer-8": {"value": "96px", "type": "spacing"}
-    },
-    "breakpoint": {
-      "text-to-content": {"xs": "16px", "s": "16px", "m": "24px", "l": "24px", "xl": "24px", "type": "spacing"},
-      "content-to-content": {"xs": "24px", "s": "24px", "m": "40px", "l": "40px", "xl": "40px", "type": "spacing"},
-      "button-margin": {"xs": "12px", "s": "12px", "m": "16px", "l": "16px", "xl": "16px", "type": "spacing"},
-      "section-padding": {"xs": "40px", "s": "56px", "m": "72px", "l": "72px", "xl": "96px", "type": "spacing"}
-    }
-  },
-  "breakpoints": {
-    "xs": {"min": "320px", "max": "480px", "description": "Mobile (base styles)"},
-    "s": {"min": "481px", "max": "767px", "media": "(min-width: 481px)", "description": "Mobile Large"},
-    "m": {"min": "768px", "max": "1119px", "media": "(min-width: 768px)", "description": "Tablet"},
-    "l": {"min": "1120px", "max": "1599px", "media": "(min-width: 1120px)", "description": "Desktop"},
-    "xl": {"min": "1600px", "max": null, "media": "(min-width: 1600px)", "description": "Large Desktop"}
-  },
-  "shadows": {
-    "shadow-sm": {"value": "0 1px 3px rgba(17, 17, 13, 0.1)", "type": "boxShadow"},
-    "shadow-md": {"value": "0 4px 8px rgba(17, 17, 13, 0.1)", "type": "boxShadow"},
-    "shadow-lg": {"value": "0 8px 16px rgba(17, 17, 13, 0.15)", "type": "boxShadow"},
-    "shadow-xl": {"value": "0 16px 32px rgba(17, 17, 13, 0.2)", "type": "boxShadow"}
-  },
-  "borderRadius": {
-    "radius-sm": {"value": "4px", "type": "borderRadius"},
-    "radius-md": {"value": "8px", "type": "borderRadius"},
-    "radius-lg": {"value": "12px", "type": "borderRadius"},
-    "radius-xl": {"value": "16px", "type": "borderRadius"},
-    "radius-full": {"value": "9999px", "type": "borderRadius"}
-  },
-  "grid": {
-    "columns": 12,
-    "gutter": {"xs": "16px", "s": "16px", "m": "24px", "l": "24px", "xl": "24px"},
-    "margin": {"xs": "16px", "s": "24px", "m": "40px", "l": "80px", "xl": "120px"},
-    "maxWidth": "1440px"
-  },
-  "focusStates": {
-    "outline": {"value": "2px solid #D1F470", "type": "border"},
-    "outlineOffset": {"value": "2px", "type": "borderWidth"}
-  }
-}</pre>
-            </div>
-        </section>
+    </main>
 
-        <div class="footer">
-            <p>Zendesk Brand For Claude Code | v2026</p>
-        </div>
+    <!-- ============================================================
+         FLOATING TOGGLE
+         ============================================================ -->
+    <div class="toggle">
+        <a href="zendesk-brand-visual-reference.html" class="toggle__btn">Human</a>
+        <a href="zendesk-brand-code-reference.html" class="toggle__btn toggle__btn--active">Machine</a>
     </div>
-
-    <div class="floating-toggle">
-        <a href="zendesk-brand-visual-reference.html" class="toggle-button inactive">HUMAN</a>
-        <a href="zendesk-brand-code-reference.html" class="toggle-button active">MACHINE</a>
-    </div>
-
-    <script type="application/json" id="greenhouse-design-tokens">
-{
-  "name": "Greenhouse 3.0",
-  "version": "3.0.0",
-  "colors": {
-    "primary": {
-      "coconut": {"value": "#FFFFFF", "type": "color", "description": "Primary background (light mode)"},
-      "licorice": {"value": "#11110D", "type": "color", "description": "Primary text and dark background"},
-      "matcha": {"value": "#D1F470", "type": "color", "description": "Primary CTA color (use sparingly)"},
-      "sesame": {"value": "#F5F5F2", "type": "color", "description": "Secondary background"}
-    },
-    "secondary": {
-      "cactus": {"value": "#7DAD19", "type": "color"},
-      "pineapple": {"value": "#FFD424", "type": "color"},
-      "shamrock": {"value": "#53A318", "type": "color"},
-      "fern": {"value": "#203524", "type": "color"},
-      "coal": {"value": "#0E0E0B", "type": "color"}
-    },
-    "extended": {
-      "matcha": {
-        "000": {"value": "#F8FEDB", "type": "color"},
-        "100": {"value": "#F0FCBC", "type": "color"},
-        "200": {"value": "#E5FA91", "type": "color"},
-        "300": {"value": "#D1F470", "type": "color"},
-        "400": {"value": "#B4DC4E", "type": "color"},
-        "500": {"value": "#9CBF3F", "type": "color"},
-        "600": {"value": "#7DA031", "type": "color"}
-      },
-      "sesame": {
-        "100": {"value": "#FCFCFB", "type": "color"},
-        "200": {"value": "#E5E5E2", "type": "color"},
-        "300": {"value": "#D4D4D1", "type": "color"},
-        "400": {"value": "#C0C0BC", "type": "color"},
-        "500": {"value": "#A8A8A3", "type": "color"},
-        "600": {"value": "#8F8F8A", "type": "color"},
-        "700": {"value": "#757571", "type": "color"}
-      }
-    },
-    "neutrals": {
-      "light": {
-        "licorice-5": {"value": "rgba(17, 17, 13, 0.05)", "type": "color"},
-        "licorice-15": {"value": "rgba(17, 17, 13, 0.15)", "type": "color"},
-        "licorice-30": {"value": "rgba(17, 17, 13, 0.30)", "type": "color"},
-        "licorice-50": {"value": "rgba(17, 17, 13, 0.50)", "type": "color"},
-        "licorice-65": {"value": "rgba(17, 17, 13, 0.65)", "type": "color"},
-        "licorice-79": {"value": "rgba(17, 17, 13, 0.79)", "type": "color"}
-      },
-      "dark": {
-        "white-5": {"value": "rgba(255, 255, 255, 0.05)", "type": "color"},
-        "white-15": {"value": "rgba(255, 255, 255, 0.15)", "type": "color"},
-        "white-30": {"value": "rgba(255, 255, 255, 0.30)", "type": "color"},
-        "white-50": {"value": "rgba(255, 255, 255, 0.50)", "type": "color"},
-        "white-65": {"value": "rgba(255, 255, 255, 0.65)", "type": "color"},
-        "white-79": {"value": "rgba(255, 255, 255, 0.79)", "type": "color"}
-      }
-    }
-  },
-  "typography": {
-    "fontFamilies": {
-      "zendesk-sans": {"value": "Zendesk Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", "type": "fontFamily"},
-      "zendesk-mono": {"value": "Zendesk Mono, Menlo, Monaco, 'Courier New', monospace", "type": "fontFamily"}
-    },
-    "h1": {"fontSize": "42px", "fontWeight": 500, "lineHeight": "44.1px", "type": "typography"},
-    "h2": {"fontSize": "30px", "fontWeight": 500, "lineHeight": "34.5px", "type": "typography"},
-    "h3": {"fontSize": "21px", "fontWeight": 500, "lineHeight": "26.25px", "type": "typography"},
-    "h4": {"fontSize": "15px", "fontWeight": 600, "lineHeight": "21.75px", "type": "typography"},
-    "paragraph-large": {"fontSize": "21px", "fontWeight": 400, "lineHeight": "26.25px", "type": "typography"},
-    "paragraph": {"fontSize": "15px", "fontWeight": 400, "lineHeight": "21.75px", "type": "typography"}
-  },
-  "spacing": {
-    "base": {
-      "spacer-1": {"value": "8px", "type": "spacing"},
-      "spacer-2": {"value": "12px", "type": "spacing"},
-      "spacer-3": {"value": "16px", "type": "spacing"},
-      "spacer-4": {"value": "24px", "type": "spacing"},
-      "spacer-5": {"value": "40px", "type": "spacing"},
-      "spacer-6": {"value": "56px", "type": "spacing"},
-      "spacer-7": {"value": "72px", "type": "spacing"},
-      "spacer-8": {"value": "96px", "type": "spacing"}
-    },
-    "breakpoint": {
-      "text-to-content": {"xs": "16px", "s": "16px", "m": "24px", "l": "24px", "xl": "24px", "type": "spacing"},
-      "content-to-content": {"xs": "24px", "s": "24px", "m": "40px", "l": "40px", "xl": "40px", "type": "spacing"},
-      "button-margin": {"xs": "12px", "s": "12px", "m": "16px", "l": "16px", "xl": "16px", "type": "spacing"},
-      "section-padding": {"xs": "40px", "s": "56px", "m": "72px", "l": "72px", "xl": "96px", "type": "spacing"}
-    }
-  },
-  "breakpoints": {
-    "xs": {"min": "320px", "max": "480px", "description": "Mobile (base styles)"},
-    "s": {"min": "481px", "max": "767px", "media": "(min-width: 481px)", "description": "Mobile Large"},
-    "m": {"min": "768px", "max": "1119px", "media": "(min-width: 768px)", "description": "Tablet"},
-    "l": {"min": "1120px", "max": "1599px", "media": "(min-width: 1120px)", "description": "Desktop"},
-    "xl": {"min": "1600px", "max": null, "media": "(min-width: 1600px)", "description": "Large Desktop"}
-  },
-  "shadows": {
-    "shadow-sm": {"value": "0 1px 3px rgba(17, 17, 13, 0.1)", "type": "boxShadow"},
-    "shadow-md": {"value": "0 4px 8px rgba(17, 17, 13, 0.1)", "type": "boxShadow"},
-    "shadow-lg": {"value": "0 8px 16px rgba(17, 17, 13, 0.15)", "type": "boxShadow"},
-    "shadow-xl": {"value": "0 16px 32px rgba(17, 17, 13, 0.2)", "type": "boxShadow"}
-  },
-  "borderRadius": {
-    "radius-sm": {"value": "4px", "type": "borderRadius"},
-    "radius-md": {"value": "8px", "type": "borderRadius"},
-    "radius-lg": {"value": "12px", "type": "borderRadius"},
-    "radius-xl": {"value": "16px", "type": "borderRadius"},
-    "radius-full": {"value": "9999px", "type": "borderRadius"}
-  },
-  "grid": {
-    "columns": 12,
-    "gutter": {"xs": "16px", "s": "16px", "m": "24px", "l": "24px", "xl": "24px"},
-    "margin": {"xs": "16px", "s": "24px", "m": "40px", "l": "80px", "xl": "120px"},
-    "maxWidth": "1440px"
-  },
-  "focusStates": {
-    "outline": {"value": "2px solid #D1F470", "type": "border"},
-    "outlineOffset": {"value": "2px", "type": "borderWidth"}
-  }
-}
-    </script>
 
     <script>
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
-
-            navigator.clipboard.writeText(text).then(() => {
-                const button = element.previousElementSibling;
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                setTimeout(() => {
-                    button.textContent = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
+        /* ============================================================
+           SYNTAX HIGHLIGHTING — JSON + HTML/CSS
+           Hand-rolled, no dependencies.
+           ============================================================ */
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
+
+        function highlightJSON(text) {
+            // Strategy: tokenize char-by-char respecting strings.
+            // We unescape the source from textContent (already raw).
+            const tokens = [];
+            let i = 0;
+            const n = text.length;
+            while (i < n) {
+                const c = text[i];
+                if (c === '"') {
+                    // Find end of string
+                    let j = i + 1;
+                    while (j < n && text[j] !== '"') {
+                        if (text[j] === '\\') j += 2;
+                        else j++;
+                    }
+                    const str = text.substring(i, j + 1);
+                    // Determine if this is a key (followed by colon) or string value
+                    let k = j + 1;
+                    while (k < n && /\s/.test(text[k])) k++;
+                    const isKey = text[k] === ':';
+                    tokens.push({ type: isKey ? 'key' : 'string', value: str });
+                    i = j + 1;
+                } else if (/[\d-]/.test(c) && (i === 0 || /[\s,:\[\{]/.test(text[i - 1]))) {
+                    let j = i;
+                    while (j < n && /[\d.\-eE+]/.test(text[j])) j++;
+                    tokens.push({ type: 'number', value: text.substring(i, j) });
+                    i = j;
+                } else if (text.substr(i, 4) === 'true' || text.substr(i, 5) === 'false') {
+                    const len = text.substr(i, 4) === 'true' ? 4 : 5;
+                    tokens.push({ type: 'bool', value: text.substr(i, len) });
+                    i += len;
+                } else if (text.substr(i, 4) === 'null') {
+                    tokens.push({ type: 'null', value: 'null' });
+                    i += 4;
+                } else if (/[\{\}\[\],:]/.test(c)) {
+                    tokens.push({ type: 'punct', value: c });
+                    i++;
+                } else {
+                    tokens.push({ type: 'text', value: c });
+                    i++;
+                }
+            }
+
+            return tokens.map(t => {
+                if (t.type === 'text') return escapeHtml(t.value);
+                return `<span class="syn-${t.type}">${escapeHtml(t.value)}</span>`;
+            }).join('');
+        }
+
+        function highlightHTML(text) {
+            // Input is already-escaped HTML. Split into segments by &lt;...&gt; tag markers,
+            // then highlight tags and attribute pairs inside tag segments, and property:value
+            // pairs inside text segments (for <style> block content).
+            const parts = [];
+            let i = 0;
+            while (i < text.length) {
+                if (text.substr(i, 4) === '&lt;') {
+                    const end = text.indexOf('&gt;', i);
+                    if (end === -1) { parts.push({ kind: 'text', value: text.substring(i) }); break; }
+                    parts.push({ kind: 'tag', value: text.substring(i + 4, end) });
+                    i = end + 4;
+                } else {
+                    const next = text.indexOf('&lt;', i);
+                    const end = next === -1 ? text.length : next;
+                    parts.push({ kind: 'text', value: text.substring(i, end) });
+                    i = end;
+                }
+            }
+            return parts.map(p => {
+                if (p.kind === 'tag') {
+                    const inner = p.value;
+                    const m = inner.match(/^(\/?[a-zA-Z0-9-]+)/);
+                    if (m) {
+                        const tagName = m[1];
+                        let rest = inner.substring(tagName.length);
+                        rest = rest.replace(/([a-zA-Z-]+)(=)("[^"]*")/g, (_, a, eq, v) =>
+                            `<span class="syn-attr">${a}</span><span class="syn-punct">${eq}</span><span class="syn-string">${v}</span>`);
+                        return `<span class="syn-punct">&lt;</span><span class="syn-tag">${tagName}</span>${rest}<span class="syn-punct">&gt;</span>`;
+                    }
+                    return `<span class="syn-punct">&lt;</span>${inner}<span class="syn-punct">&gt;</span>`;
+                }
+                // Text between tags: highlight CSS property:value; lines
+                return p.value.replace(/^(\s*)([a-z-]+)(\s*:\s*)([^;\n]+)(;)/gm, (_, ws, prop, sep, val, semi) =>
+                    `${ws}<span class="syn-attr">${prop}</span><span class="syn-punct">${sep}</span><span class="syn-string">${val}</span><span class="syn-punct">${semi}</span>`);
+            }).join('');
+        }
+
+        document.querySelectorAll('pre[data-json]').forEach(pre => {
+            const raw = pre.textContent;
+            pre.innerHTML = highlightJSON(raw);
+            pre.setAttribute('data-raw', raw);
+        });
+
+        document.querySelectorAll('pre[data-html]').forEach(pre => {
+            // Author wrote escaped HTML literally; textContent gives us the literal "&lt;..."
+            // But the browser already converted those entities when parsing. So innerHTML at this
+            // moment shows the actual unescaped tags as text. We re-escape and highlight.
+            const raw = pre.textContent;
+            const escaped = escapeHtml(raw);
+            pre.innerHTML = highlightHTML(escaped);
+            pre.setAttribute('data-raw', raw);
+        });
+
+        /* ============================================================
+           COPY BUTTONS
+           ============================================================ */
+        document.querySelectorAll('.copy-button').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const targetId = btn.getAttribute('data-target');
+                const target = document.getElementById(targetId);
+                if (!target) return;
+                const raw = target.getAttribute('data-raw') || target.textContent;
+                try {
+                    await navigator.clipboard.writeText(raw);
+                } catch (e) {
+                    // Fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = raw;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied ✓';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 1500);
+            });
+        });
+
+        /* ============================================================
+           ACTIVE NAV ON SCROLL
+           ============================================================ */
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav__item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    navItems.forEach(item => {
+                        item.classList.toggle('nav__item--active', item.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>

@@ -5,151 +5,586 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zendesk Brand Style Guide</title>
     <style>
+        /* ============================================================
+           FONTS
+           ============================================================ */
         @font-face {
             font-family: 'Zendesk Sans';
             src: url('fonts/zendesk-sans/ZendeskSans-Regular.woff2') format('woff2');
             font-weight: 400;
             font-style: normal;
+            font-display: swap;
         }
         @font-face {
             font-family: 'Zendesk Sans';
             src: url('fonts/zendesk-sans/ZendeskSans-Medium.woff2') format('woff2');
             font-weight: 500;
             font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-MediumItalic.woff2') format('woff2');
+            font-weight: 500;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('fonts/zendesk-sans/ZendeskSans-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Zendesk Mono';
+            src: url('fonts/zendesk-mono/ZendeskMono-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
         }
         @font-face {
             font-family: 'Zendesk Mono';
             src: url('fonts/zendesk-mono/ZendeskMono-Medium.woff2') format('woff2');
             font-weight: 500;
             font-style: normal;
+            font-display: swap;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ============================================================
+           TOKENS
+           ============================================================ */
+        :root {
+            --color-licorice: #11110D;
+            --color-coconut: #FFFFFF;
+            --color-coconut-79: rgba(255, 255, 255, 0.79);
+            --color-coconut-56: rgba(255, 255, 255, 0.56);
+            --color-coconut-32: rgba(255, 255, 255, 0.32);
+            --color-coconut-12: rgba(255, 255, 255, 0.12);
+            --color-coconut-7: rgba(255, 255, 255, 0.07);
+            --color-matcha: #D1F470;
+            --color-matcha-200: #B8DB5C;
+            --color-shamrock: #2D4C33;
+
+            --font-sans: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Zendesk Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+            --s-8: 8px;
+            --s-12: 12px;
+            --s-16: 16px;
+            --s-24: 24px;
+            --s-32: 32px;
+            --s-40: 40px;
+            --s-56: 56px;
+            --s-72: 72px;
+            --s-96: 96px;
+            --s-120: 120px;
+
+            --content-max: 1200px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Zendesk Sans', sans-serif;
-            background: linear-gradient(135deg, #11110D 0%, #203524 100%);
+            font-family: var(--font-sans);
+            background: var(--color-licorice);
+            color: var(--color-coconut);
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Fixed dot grid background — echoes machine reference page */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, var(--color-coconut-7) 1px, transparent 0);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Shamrock radial glow bottom-right — echoes machine reference page */
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 70vw;
+            height: 70vw;
+            max-width: 1000px;
+            max-height: 1000px;
+            background: radial-gradient(circle, rgba(209, 244, 112, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ============================================================
+           LAYOUT
+           ============================================================ */
+        .page {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: var(--s-40) var(--s-56);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--s-96);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--s-12);
+        }
+
+        .brand__mark {
+            width: 32px;
+            height: 23px;
+        }
+
+        .brand__text {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-coconut-79);
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: var(--s-12);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-coconut-56);
+        }
+
+        .status__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-matcha);
+            box-shadow: 0 0 12px rgba(209, 244, 112, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: var(--content-max);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero__supertitle {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-matcha);
+            margin-bottom: var(--s-32);
+            display: flex;
+            align-items: center;
+            gap: var(--s-12);
+        }
+
+        .hero__supertitle::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--color-matcha);
+        }
+
+        .hero__title {
+            font-family: var(--font-sans);
+            font-size: clamp(64px, 10vw, 140px);
+            font-weight: 500;
+            line-height: 0.92;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--s-40);
+            max-width: 14ch;
+        }
+
+        .hero__title em {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .hero__lede {
+            font-size: clamp(18px, 1.6vw, 22px);
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--color-coconut-79);
+            max-width: 58ch;
+            margin-bottom: var(--s-72);
+        }
+
+        /* ============================================================
+           MOTION PLACEHOLDER — drop a video/Lottie/image here later
+           ============================================================ */
+        .motion {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 21 / 9;
+            max-height: 480px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--color-licorice);
+            border: 1px solid var(--color-coconut-12);
+            margin-bottom: var(--s-72);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #FFFFFF;
-            padding: 40px;
         }
 
-        .container {
-            max-width: 800px;
+        /* When a video or img is dropped in, it fills the slot */
+        .motion video,
+        .motion img,
+        .motion iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Placeholder content — hide this once real asset is added by adding .motion--loaded */
+        .motion__placeholder {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--s-24);
+            z-index: 1;
+        }
+
+        .motion--loaded .motion__placeholder { display: none; }
+
+        .motion__frame {
+            position: absolute;
+            inset: var(--s-16);
+            border: 1px dashed var(--color-coconut-12);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .motion__corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--color-matcha);
+            opacity: 0.5;
+        }
+        .motion__corner--tl { top: var(--s-16); left: var(--s-16); border-right: 0; border-bottom: 0; }
+        .motion__corner--tr { top: var(--s-16); right: var(--s-16); border-left: 0; border-bottom: 0; }
+        .motion__corner--bl { bottom: var(--s-16); left: var(--s-16); border-right: 0; border-top: 0; }
+        .motion__corner--br { bottom: var(--s-16); right: var(--s-16); border-left: 0; border-top: 0; }
+
+        .motion__pulse {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(209, 244, 112, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .motion__pulse::before,
+        .motion__pulse::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid var(--color-matcha);
+            animation: ring 2.4s ease-out infinite;
+        }
+        .motion__pulse::after {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes ring {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .motion__pulse svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--color-matcha);
+            position: relative;
+            z-index: 1;
+        }
+
+        .motion__label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-coconut-56);
             text-align: center;
         }
 
-        .supertitle {
-            font-family: 'Zendesk Mono', monospace;
+        .motion__label strong {
+            color: var(--color-matcha);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+           ROUTE CARDS
+           ============================================================ */
+        .routes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--s-24);
+            margin-bottom: var(--s-96);
+        }
+
+        .route {
+            position: relative;
+            display: block;
+            padding: var(--s-40);
+            border-radius: 20px;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--color-coconut-12);
+            background: var(--color-coconut-7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+            overflow: hidden;
+        }
+
+        .route::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 0%, rgba(209, 244, 112, 0.12), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .route:hover {
+            border-color: var(--color-matcha);
+            transform: translateY(-2px);
+        }
+
+        .route:hover::after {
+            opacity: 1;
+        }
+
+        .route__tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-matcha);
+            margin-bottom: var(--s-16);
+            display: flex;
+            align-items: center;
+            gap: var(--s-8);
+        }
+
+        .route__tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-matcha);
+        }
+
+        .route__title {
+            font-size: 36px;
+            font-weight: 500;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--s-12);
+        }
+
+        .route__desc {
+            font-size: 15px;
+            line-height: 1.55;
+            color: var(--color-coconut-79);
+            margin-bottom: var(--s-32);
+            max-width: 42ch;
+        }
+
+        .route__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--s-8);
+            font-family: var(--font-mono);
             font-size: 12px;
             font-weight: 500;
-            letter-spacing: 0.48px;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #D1F470;
-            margin-bottom: 20px;
+            color: var(--color-coconut);
         }
 
-        h1 {
-            font-size: 72px;
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 24px;
+        .route__cta svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
         }
 
-        .subtitle {
-            font-size: 21px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 56px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .route:hover .route__cta svg {
+            transform: translateX(4px);
         }
 
-        .buttons {
+        /* ============================================================
+           FOOTER META
+           ============================================================ */
+        .meta {
             display: flex;
-            gap: 16px;
-            justify-content: center;
             flex-wrap: wrap;
+            gap: var(--s-40);
+            padding-top: var(--s-32);
+            border-top: 1px solid var(--color-coconut-12);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-coconut-56);
         }
 
-        .btn {
-            padding: 16px 40px;
-            border-radius: 16px;
-            font-family: 'Zendesk Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-block;
+        .meta__item {
+            display: flex;
+            gap: var(--s-8);
         }
 
-        .btn-primary {
-            background-color: #D1F470;
-            color: #11110D;
-            border: none;
+        .meta__label {
+            color: var(--color-coconut-32);
         }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 900px) {
+            .page { padding: var(--s-32) var(--s-32); }
+            .header { margin-bottom: var(--s-72); }
+            .routes { grid-template-columns: 1fr; }
+            .route__title { font-size: 28px; }
+            .motion { aspect-ratio: 16 / 10; }
         }
 
-        .btn-secondary {
-            background-color: #FFFFFF;
-            color: #11110D;
-            border: 2px solid #FFFFFF;
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
-        }
-
-        .footer {
-            margin-top: 80px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 48px;
-            }
-            .buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
+        @media (max-width: 560px) {
+            .page { padding: var(--s-24); }
+            .status span:not(.status__dot) { display: none; }
+            .hero__lede { font-size: 16px; }
+            .route { padding: var(--s-32) var(--s-24); }
+            .meta { gap: var(--s-24); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p class="supertitle">ZENDESK BRAND SYSTEM</p>
-        <h1>Brand style guide</h1>
-        <p class="subtitle">Zendesk's AI friendly digital design and development library</p>
+    <div class="page">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand">
+                <svg class="brand__mark" viewBox="0 0 144 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M77.4095 104.5C77.5392 86.3085 92.3259 71.6016 110.548 71.6016C128.77 71.6016 143.556 86.3085 143.686 104.5L77.4095 104.5Z" fill="#FFFFFF"/>
+                    <path d="M143.5 0H77.5V77L143.5 0Z" fill="#FFFFFF"/>
+                    <path d="M66.2766 0C66.1468 18.1914 51.3605 32.8983 33.1385 32.8984C14.9165 32.8984 0.12976 18.1915 0 0L66.2766 0Z" fill="#FFFFFF"/>
+                    <path d="M0 104.5L66.5 104.5L66.5 27.5L0 104.5Z" fill="#FFFFFF"/>
+                </svg>
+                <div class="brand__text">Zendesk · Brand System</div>
+            </div>
+            <div class="status">
+                <span class="status__dot"></span>
+                <span>System · Greenhouse 3.0 · v2026</span>
+            </div>
+        </header>
 
-        <div class="buttons">
-            <a href="zendesk-brand-visual-reference.html" class="btn btn-primary">Human Reference</a>
-            <a href="zendesk-brand-code-reference.html" class="btn btn-secondary">Machine Reference</a>
-        </div>
+        <!-- HERO -->
+        <main class="hero">
+            <div class="hero__supertitle">Brand Style Guide</div>
+            <h1 class="hero__title">Built for <em>humans</em> and machines.</h1>
+            <p class="hero__lede">A single source of truth for the Zendesk visual language — expressed two ways. A visual reference for designers, writers, and stakeholders. A structured token library for AI agents, pipelines, and engineers.</p>
 
-        <div class="footer">
-            <p>Zendesk Brand For Claude Code | v2026</p>
-        </div>
+            <!-- MOTION PLACEHOLDER
+                 To replace with real asset:
+                 1. Add a <video autoplay muted loop playsinline> or <img> inside .motion
+                 2. Add class "motion--loaded" to the .motion element to hide the placeholder
+            -->
+            <div class="motion motion--loaded" id="motion-slot">
+                <video autoplay muted loop playsinline>
+                    <source src="logo-expand.mp4" type="video/mp4">
+                </video>
+                <div class="motion__frame"></div>
+                <div class="motion__corner motion__corner--tl"></div>
+                <div class="motion__corner motion__corner--tr"></div>
+                <div class="motion__corner motion__corner--bl"></div>
+                <div class="motion__corner motion__corner--br"></div>
+            </div>
+
+            <!-- ROUTES -->
+            <div class="routes">
+                <a href="zendesk-brand-visual-reference.html" class="route">
+                    <div class="route__tag">Reading Mode · Human</div>
+                    <h2 class="route__title">Visual reference</h2>
+                    <p class="route__desc">Brand strategy, logo, colors, typography, components, and usage rules — laid out as a visual document you can scroll, share, and present.</p>
+                    <span class="route__cta">
+                        Open visual guide
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="zendesk-brand-code-reference.html" class="route">
+                    <div class="route__tag">Reading Mode · Machine</div>
+                    <h2 class="route__title">Code reference</h2>
+                    <p class="route__desc">Structured tokens, JSON schemas, and component snippets — for AI agents, build pipelines, and developers wiring the brand into product surfaces.</p>
+                    <span class="route__cta">
+                        Open code guide
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- META -->
+            <div class="meta">
+                <div class="meta__item"><span class="meta__label">System</span><span>Greenhouse 3.0</span></div>
+                <div class="meta__item"><span class="meta__label">Version</span><span>2026.04</span></div>
+                <div class="meta__item"><span class="meta__label">Audience</span><span>Humans + Machines</span></div>
+                <div class="meta__item"><span class="meta__label">Built for</span><span>Claude Code</span></div>
+            </div>
+        </main>
     </div>
 </body>
 </html>
